@@ -7,6 +7,9 @@ RefineKV reduces long-context decode work by adapting KV access to each query.
 Different queries need different parts of the context, so it retains the original
 KV cache and selectively refines contiguous prompt blocks at each decode step.
 
+For vLLM serving, see the separate experimental
+[RefineKV-vllm plugin](https://github.com/Kevin-lkw/RefineKV-vllm).
+
 ## How it works
 
 1. **Summarize.** After prefill, cache block mean K/V, counts, value norms,
