@@ -1,0 +1,170 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "versions": {
+    "torch": "2.10.0",
+    "transformers": "5.2.0",
+    "triton": "3.6.0",
+    "refinekv": "0.1.2"
+  },
+  "total_context_tokens": 131072,
+  "config": {
+    "block_size": 32,
+    "eps": 0.01,
+    "gqa_reduction": "mean",
+    "anchor_tokens": 0,
+    "full_attention_layers": 0,
+    "backend": "triton",
+    "summary_chunk_blocks": 512,
+    "collect_stats": false
+  },
+  "warmup_requests_per_method": 1,
+  "measured_requests_per_method": 3,
+  "summary_rule": "median of per-request ms/token for each method; speedup = Full median / RefineKV Graph median",
+  "runs": [
+    {
+      "run_id": "128_steady",
+      "generated_tokens": 128,
+      "prompt_tokens": 130944,
+      "decode_intervals": 125,
+      "window": "steady",
+      "ms_per_token_samples": {
+        "Full": [
+          26.80416427203454,
+          26.806554903974757,
+          26.811689727939665
+        ],
+        "RefineKV Graph": [
+          14.209734295960516,
+          14.210746864089742,
+          14.208221696084365
+        ]
+      },
+      "median_ms_per_token": {
+        "Full": 26.806554903974757,
+        "RefineKV Graph": 14.209734295960516
+      },
+      "full_over_refinekv_speedup": 1.8864923400851494,
+      "retrieval_target_present": {
+        "Full": [
+          true,
+          true,
+          true
+        ],
+        "RefineKV Graph": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "run_id": "128_all",
+      "generated_tokens": 128,
+      "prompt_tokens": 130944,
+      "decode_intervals": 127,
+      "window": "all",
+      "ms_per_token_samples": {
+        "Full": [
+          26.859189637828486,
+          26.859727070995014,
+          26.840573031451612
+        ],
+        "RefineKV Graph": [
+          14.56961286617223,
+          14.579648708633155,
+          14.635459472485781
+        ]
+      },
+      "median_ms_per_token": {
+        "Full": 26.859189637828486,
+        "RefineKV Graph": 14.579648708633155
+      },
+      "full_over_refinekv_speedup": 1.8422384636691662,
+      "retrieval_target_present": {
+        "Full": [
+          true,
+          true,
+          true
+        ],
+        "RefineKV Graph": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "run_id": "256_joint",
+      "generated_tokens": 256,
+      "prompt_tokens": 130816,
+      "decode_intervals": 253,
+      "window": "steady",
+      "ms_per_token_samples": {
+        "Full": [
+          26.82367631228707,
+          26.81603961660556,
+          26.818402162030626
+        ],
+        "RefineKV Graph": [
+          14.222882830113607,
+          14.220977063325746,
+          14.221641272669952
+        ]
+      },
+      "median_ms_per_token": {
+        "Full": 26.818402162030626,
+        "RefineKV Graph": 14.221641272669952
+      },
+      "full_over_refinekv_speedup": 1.885745930996597,
+      "retrieval_target_present": {
+        "Full": [
+          true,
+          true,
+          true
+        ],
+        "RefineKV Graph": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "run_id": "256_joint",
+      "generated_tokens": 256,
+      "prompt_tokens": 130816,
+      "decode_intervals": 255,
+      "window": "all",
+      "ms_per_token_samples": {
+        "Full": [
+          26.83190747846703,
+          26.82363118830265,
+          26.825406925533624
+        ],
+        "RefineKV Graph": [
+          14.421053184310486,
+          14.421431858927997,
+          14.402217839219078
+        ]
+      },
+      "median_ms_per_token": {
+        "Full": 26.825406925533624,
+        "RefineKV Graph": 14.421053184310486
+      },
+      "full_over_refinekv_speedup": 1.8601558833940484,
+      "retrieval_target_present": {
+        "Full": [
+          true,
+          true,
+          true
+        ],
+        "RefineKV Graph": [
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  ]
+}

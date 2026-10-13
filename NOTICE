@@ -1,0 +1,25 @@
+RefineKV
+
+This standalone package extracts the stable ConditionBlock/diag-ell algorithm
+and split attention implementation from the interattn research repository.
+The original repository's MIT license notice is retained in LICENSE.
+
+Implementation origins, relative to the original repository:
+
+- llama/script/analysis/condition_block_ball/stable_diag_ell.py
+  Centered radius construction, stable condition terms, selection kernels,
+  and fused representative selection.
+- llama/script/analysis/condition_block_ball/triton_finalize_v3.py
+  Selected-page/suffix attention and online-softmax reduction.
+- llama/script/analysis/condition_block_gen/methods/condition_block_triton_impl/core.py
+  Selection-statistic reduction and continuous page layout.
+- llama/script/analysis/condition_block_ball/prompt_anchor_union/runtime.py
+  Memory-efficient page construction and prompt-anchor union semantics.
+
+Inactive experiment branches were removed from the extracted kernels.
+Request state, explicit configuration, the tensor API, the PyTorch reference,
+and the registered Transformers integration are packaged independently.
+No runtime import of the original repository is required.
+
+PyTorch, Transformers, and Triton are external dependencies distributed
+under their respective licenses.

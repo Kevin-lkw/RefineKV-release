@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "refinekv"
+version = "0.1.2"
+authors = [{name = "Kevin-lkw"}]
+description = "Query-adaptive block refinement for long-context attention"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = ["torch>=2.10,<2.14"]
+
+[project.urls]
+Repository = "https://github.com/Kevin-lkw/RefineKV-release"
+
+[project.optional-dependencies]
+transformers = ["transformers>=5.1,<5.3", "accelerate>=1.0"]
+cuda = ["triton>=3.6,<3.8; platform_system == 'Linux'"]
+dev = ["pytest>=8", "ruff>=0.14"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["cuda: requires a CUDA GPU and Triton", "transformers: requires Transformers"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/refinekv/kernels/selection.py" = ["E741"]
+"src/refinekv/kernels/attention.py" = ["E741"]
