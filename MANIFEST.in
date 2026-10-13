@@ -1,2 +1,3 @@
 recursive-include examples *.py
 recursive-include speed *.md *.json
+recursive-include demos *.mp4

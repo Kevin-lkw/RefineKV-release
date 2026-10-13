@@ -35,6 +35,23 @@ RULER, and HELMET, reporting up to **11.7× attention-phase speedup** and
 **1.76× decode speedup**. These are paper results on RTX PRO 6000 Blackwell.
 The release benchmark uses a separate runtime, described below.
 
+## Demos
+
+These silent MP4s are uploaded as GitHub video attachments.
+
+### Figure 3: how RefineKV selects KV blocks
+
+https://github.com/user-attachments/assets/79a81278-2e34-4fef-8cec-c19db89af354
+
+### Long-context decoding
+
+https://github.com/user-attachments/assets/31753e09-710e-46db-baef-dbd29ef51630
+
+On a real 130,801-token LongBench-v2 prompt, Llama-3.1-8B-Instruct generates
+256 tokens with Full Attention and with the separate RefineKV vLLM plugin.
+Median time per output token over three measured requests was **23.03 ms** and
+**12.56 ms**, respectively (**1.83×** speedup).
+
 ## Install
 
 From this directory:
