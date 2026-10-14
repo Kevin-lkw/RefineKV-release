@@ -1,0 +1,83 @@
+{
+  "figure": "Figure 2, right panels",
+  "dataset": "WikiText-2",
+  "description": "All original observations; risk versus cluster attention-contribution error. Both panels share log axes.",
+  "models": [
+    {
+      "model": "Llama-3.1-8B",
+      "n": 4124,
+      "spearman": 0.9451670746278416,
+      "log10_pearson": 0.9471292281945787,
+      "layer": 15,
+      "query_heads": [
+        0,
+        10,
+        21,
+        31
+      ],
+      "query_positions": [
+        256,
+        307,
+        358,
+        409,
+        461,
+        512,
+        563,
+        614,
+        665,
+        716,
+        767,
+        818,
+        870,
+        921,
+        972,
+        1023
+      ],
+      "cluster_min_size": 2,
+      "score": "condition",
+      "error": "cluster_error_l2",
+      "source": "llama/result/Llama-3.1-8B/wikitext_0/condition_block_corr/layer15_heads_4/budget=0.1/size_ge2/cluster_approx_condition.tsv",
+      "source_sha256": "cfa1cbb41d53057518be2a28b46d582f9f3f637b5aff013cf45fe426e8b53a0e",
+      "summary_source": "llama/result/Llama-3.1-8B/wikitext_0/condition_block_corr/layer15_heads_4/budget=0.1/size_ge2/cluster_approx_condition_summary.tsv",
+      "summary_sha256": "7a49b961289be48a004731474e76de9ab186fad8f0ef4aeffbbea91743209303"
+    },
+    {
+      "model": "Qwen2.5-7B-Instruct",
+      "n": 4124,
+      "spearman": 0.9470595240786346,
+      "log10_pearson": 0.9465312114790556,
+      "layer": 15,
+      "query_heads": [
+        0,
+        9,
+        18,
+        27
+      ],
+      "query_positions": [
+        256,
+        307,
+        358,
+        409,
+        461,
+        512,
+        563,
+        614,
+        665,
+        716,
+        767,
+        818,
+        870,
+        921,
+        972,
+        1023
+      ],
+      "cluster_min_size": 2,
+      "score": "condition",
+      "error": "cluster_error_l2",
+      "source": "llama/result/Qwen2.5-7B-Instruct/wikitext_0/condition_block_corr/layer15_heads_4/budget=0.1/size_ge2/cluster_approx_condition.tsv",
+      "source_sha256": "65ed0e986deb20fb1cb8c4f64b9ea8a0051e87680f5c8785c85243aaceb40690",
+      "summary_source": "llama/result/Qwen2.5-7B-Instruct/wikitext_0/condition_block_corr/layer15_heads_4/budget=0.1/size_ge2/cluster_approx_condition_summary.tsv",
+      "summary_sha256": "975554c4c4501b0e96e88f7c73375017bf2993b0e89ba5f579a03a380e64eb95"
+    }
+  ]
+}

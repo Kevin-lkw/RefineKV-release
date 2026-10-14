@@ -1,0 +1,30 @@
+{
+  "table1_cells_verified_against_latex": 216,
+  "files": [
+    {
+      "asset": "figure5-latency.svg",
+      "source": "llama/result/latency_decomposition_full_vs_ours_20260923/full_vs_ours_both_eps0p01.svg",
+      "sha256": "43d45d0c258561993cef050232755256094040207335974c024e2da286e25e1e"
+    },
+    {
+      "asset": "figure5-latency.pdf",
+      "source": "llama/result/latency_decomposition_full_vs_ours_20260923/full_vs_ours_both_eps0p01.pdf",
+      "sha256": "b5409d1c6db1bf496204e93710e8d039714edc53020bbce817ebd97960181bf8"
+    },
+    {
+      "asset": "figure5-latency.csv",
+      "source": "llama/result/latency_decomposition_full_vs_ours_20260923/full_vs_ours_both_eps0p01.csv",
+      "sha256": "26db36aa20d25fc04e3da721f180d84db4961a2116d676af2e4175df523a50d5"
+    },
+    {
+      "asset": "table1-original.pdf",
+      "source": "llama/result/main_table_task_groups_acc_speedup_20260925/main_acc_speedup_task_group_table.pdf",
+      "sha256": "0c40b6990658ea3b06a15e186019d20dc101d77091172f0ced91783f37e310e5"
+    },
+    {
+      "asset": "table1.csv",
+      "source": "llama/result/main_table_task_groups_acc_speedup_20260925/table_cells.csv",
+      "sha256": "424e723cde5092f9c88be0ef936086711d1fc585bd29cce008213976c4760c10"
+    }
+  ]
+}

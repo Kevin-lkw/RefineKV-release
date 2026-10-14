@@ -1,0 +1,217 @@
+model,method_key,method,benchmark,task_group,short_group,n_tasks,accuracy,steady_tpot_ms,speedup_vs_full,accuracy_drop_vs_full,underlined_low_loss,pareto_eligible,pareto
+llama,full,Full,longbench,Document QA,Doc QA,6,43.82833333333333,25.900731126687898,1.0,0.0,False,True,True
+llama,full,Full,longbench,Summarization,Summarization,3,29.136666666666667,25.900244824009302,1.0,0.0,False,True,False
+llama,full,Full,longbench,Few-shot Learning,Few-shot,3,69.18666666666667,25.900488148046726,1.0,0.0,False,True,False
+llama,full,Full,longbench,Synthetic Tasks,Synthetic,2,53.715,25.90254090665396,1.0,0.0,False,True,True
+llama,full,Full,longbench,Code,Code,2,59.805,25.899008821441036,1.0,0.0,False,True,False
+llama,snapkv10,Snap 10%,longbench,Document QA,Doc QA,6,41.24666666666667,15.45424280037103,1.6759624823589587,2.5816666666666634,False,True,False
+llama,snapkv10,Snap 10%,longbench,Summarization,Summarization,3,23.383333333333333,15.454155096670899,1.6759405261558866,5.753333333333334,False,False,False
+llama,snapkv10,Snap 10%,longbench,Few-shot Learning,Few-shot,3,65.88333333333334,15.455049966158906,1.67585923078603,3.3033333333333275,False,True,False
+llama,snapkv10,Snap 10%,longbench,Synthetic Tasks,Synthetic,2,53.36,15.457037439022864,1.6757765521910661,0.355000000000004,True,True,False
+llama,snapkv10,Snap 10%,longbench,Code,Code,2,58.519999999999996,15.45201306552848,1.676092863215247,1.2850000000000037,False,True,False
+llama,snapkv25,Snap 25%,longbench,Document QA,Doc QA,6,42.843333333333334,17.173128582293256,1.5082127291234186,0.9849999999999994,False,True,False
+llama,snapkv25,Snap 25%,longbench,Summarization,Summarization,3,26.26,17.17228942523617,1.5082581118127816,2.876666666666665,False,True,False
+llama,snapkv25,Snap 25%,longbench,Few-shot Learning,Few-shot,3,67.5,17.173336702090978,1.5081803028349845,1.6866666666666674,False,True,False
+llama,snapkv25,Snap 25%,longbench,Synthetic Tasks,Synthetic,2,53.195,17.17497430887768,1.5081560205458377,0.5200000000000031,False,True,False
+llama,snapkv25,Snap 25%,longbench,Code,Code,2,59.785,17.1700608080423,1.5083818928183512,0.020000000000003126,True,True,False
+llama,streamllm10,Str. 10%,longbench,Document QA,Doc QA,6,32.665,15.522490838227212,1.6685937454639825,11.163333333333334,False,False,False
+llama,streamllm10,Str. 10%,longbench,Summarization,Summarization,3,22.173333333333332,15.520003204487718,1.6688298631613725,6.963333333333335,False,False,False
+llama,streamllm10,Str. 10%,longbench,Few-shot Learning,Few-shot,3,63.269999999999996,15.522796293553062,1.668545258099131,5.916666666666671,False,False,False
+llama,streamllm10,Str. 10%,longbench,Synthetic Tasks,Synthetic,2,47.47,15.55768096873108,1.664935857645796,6.2450000000000045,False,False,False
+llama,streamllm10,Str. 10%,longbench,Code,Code,2,56.14,15.46219428252828,1.6749892252166292,3.664999999999999,False,True,False
+llama,streamllm25,Str. 25%,longbench,Document QA,Doc QA,6,35.27333333333333,17.23302624997727,1.5029705607697348,8.555,False,False,False
+llama,streamllm25,Str. 25%,longbench,Summarization,Summarization,3,24.7,17.23128724744711,1.5030940203174046,4.436666666666667,False,True,False
+llama,streamllm25,Str. 25%,longbench,Few-shot Learning,Few-shot,3,66.12333333333333,17.2336470214379,1.5029023233345593,3.0633333333333326,False,True,False
+llama,streamllm25,Str. 25%,longbench,Synthetic Tasks,Synthetic,2,46.19,17.27026980185497,1.499834177684463,7.525000000000006,False,False,False
+llama,streamllm25,Str. 25%,longbench,Code,Code,2,58.095,17.17036502068079,1.5083551683523944,1.7100000000000009,False,True,False
+llama,pyramidkv10,Pyr. 10%,longbench,Document QA,Doc QA,6,41.278333333333336,15.52079898806008,1.6687756311136397,2.549999999999997,False,True,False
+llama,pyramidkv10,Pyr. 10%,longbench,Summarization,Summarization,3,23.59,15.587824926201609,1.661568881266656,5.546666666666667,False,False,False
+llama,pyramidkv10,Pyr. 10%,longbench,Few-shot Learning,Few-shot,3,65.96666666666667,15.520658377907855,1.6687750942906872,3.219999999999999,False,True,False
+llama,pyramidkv10,Pyr. 10%,longbench,Synthetic Tasks,Synthetic,2,53.33,15.4551615271466,1.6759799540856821,0.3850000000000051,True,True,False
+llama,pyramidkv10,Pyr. 10%,longbench,Code,Code,2,58.36,15.453578964788615,1.6759230260156956,1.4450000000000003,False,True,False
+llama,pyramidkv25,Pyr. 25%,longbench,Document QA,Doc QA,6,42.99166666666667,17.2400079697134,1.5023618998430472,0.836666666666666,False,True,False
+llama,pyramidkv25,Pyr. 25%,longbench,Summarization,Summarization,3,26.2,17.30652330701964,1.4965596708556705,2.9366666666666674,False,True,False
+llama,pyramidkv25,Pyr. 25%,longbench,Few-shot Learning,Few-shot,3,67.52,17.2391160580369,1.5024255339340258,1.6666666666666714,False,True,False
+llama,pyramidkv25,Pyr. 25%,longbench,Synthetic Tasks,Synthetic,2,52.97,17.17315096637264,1.5083161475360376,0.7450000000000045,False,True,False
+llama,pyramidkv25,Pyr. 25%,longbench,Code,Code,2,59.84,17.172619680567305,1.5081571305482642,-0.035000000000003695,True,True,False
+llama,ours001,Our τ.01,longbench,Document QA,Doc QA,6,43.585,14.727891596045257,1.7586177191610222,0.2433333333333323,True,True,True
+llama,ours001,Our τ.01,longbench,Summarization,Summarization,3,29.16,14.757838876913032,1.755016099581308,-0.023333333333333428,True,True,True
+llama,ours001,Our τ.01,longbench,Few-shot Learning,Few-shot,3,69.50333333333333,14.8331389174841,1.7461232104768691,-0.3166666666666629,True,True,True
+llama,ours001,Our τ.01,longbench,Synthetic Tasks,Synthetic,2,53.44,14.670095012416057,1.7656696077790435,0.2750000000000057,True,True,True
+llama,ours001,Our τ.01,longbench,Code,Code,2,59.885,14.757421804085698,1.7549819450353252,-0.0799999999999983,True,True,True
+llama,ours01,Our τ.1,longbench,Document QA,Doc QA,6,43.333333333333336,14.258905142673818,1.8164600204241919,0.49499999999999744,True,True,True
+llama,ours01,Our τ.1,longbench,Summarization,Summarization,3,28.39666666666667,14.28939422091134,1.8125502329627414,0.7399999999999984,False,True,True
+llama,ours01,Our τ.1,longbench,Few-shot Learning,Few-shot,3,67.64,14.29427434873851,1.8119484428625425,1.5466666666666669,False,True,True
+llama,ours01,Our τ.1,longbench,Synthetic Tasks,Synthetic,2,52.41,14.259675793933667,1.816488767414571,1.3050000000000068,False,True,True
+llama,ours01,Our τ.1,longbench,Code,Code,2,59.405,14.277447245567888,1.8139803548901783,0.3999999999999986,True,True,True
+llama,full,Full,ruler,NIAH,NIAH,8,88.4375,25.899305122457296,1.0,0.0,False,True,True
+llama,full,Full,ruler,Aggregation \& Tracking,A&T,3,45.333333333333336,25.900144316625617,1.0,0.0,False,True,False
+llama,full,Full,ruler,Question Answering,QA,2,55.0,25.902516855340867,1.0,0.0,False,True,False
+llama,snapkv10,Snap 10%,ruler,NIAH,NIAH,8,79.53125,15.453311771067554,1.6759711773205301,8.90625,False,False,False
+llama,snapkv10,Snap 10%,ruler,Aggregation \& Tracking,A&T,3,40.723333333333336,15.453795652353653,1.675973003608402,4.609999999999999,False,True,True
+llama,snapkv10,Snap 10%,ruler,Question Answering,QA,2,55.0,15.45627369815188,1.6758578012524488,0.0,True,True,False
+llama,snapkv25,Snap 25%,ruler,NIAH,NIAH,8,84.21875,17.17213798838202,1.5082166903142595,4.21875,False,True,False
+llama,snapkv25,Snap 25%,ruler,Aggregation \& Tracking,A&T,3,41.333333333333336,17.172994253794766,1.5081903559655818,4.0,False,True,False
+llama,snapkv25,Snap 25%,ruler,Question Answering,QA,2,55.0,17.175582230150226,1.5081012397862865,0.0,True,True,False
+llama,streamllm10,Str. 10%,ruler,NIAH,NIAH,8,11.25,15.506279074803128,1.670246291680786,77.1875,False,False,False
+llama,streamllm10,Str. 10%,ruler,Aggregation \& Tracking,A&T,3,29.833333333333332,15.519487925327171,1.6688787955662918,15.500000000000004,False,False,False
+llama,streamllm10,Str. 10%,ruler,Question Answering,QA,2,37.5,15.55748823023076,1.6649549382276256,17.5,False,False,False
+llama,streamllm25,Str. 25%,ruler,NIAH,NIAH,8,30.625,17.216346861257787,1.5043438268973834,57.8125,False,False,False
+llama,streamllm25,Str. 25%,ruler,Aggregation \& Tracking,A&T,3,34.223333333333336,17.230048192672374,1.5031962782112518,11.11,False,False,False
+llama,streamllm25,Str. 25%,ruler,Question Answering,QA,2,50.0,17.27132904315589,1.4997408011055904,5.0,False,True,False
+llama,pyramidkv10,Pyr. 10%,ruler,NIAH,NIAH,8,79.6875,15.529141886324238,1.6677872680953194,8.75,False,False,False
+llama,pyramidkv10,Pyr. 10%,ruler,Aggregation \& Tracking,A&T,3,39.166666666666664,15.587582403520447,1.6615882852222217,6.166666666666671,False,False,False
+llama,pyramidkv10,Pyr. 10%,ruler,Question Answering,QA,2,55.0,15.454647654209227,1.6760341248081485,0.0,True,True,False
+llama,pyramidkv25,Pyr. 25%,ruler,NIAH,NIAH,8,84.84375,17.247371898390288,1.5016377727017356,3.59375,False,True,True
+llama,pyramidkv25,Pyr. 25%,ruler,Aggregation \& Tracking,A&T,3,41.776666666666664,17.30522636888381,1.4966660224217674,3.556666666666672,False,True,False
+llama,pyramidkv25,Pyr. 25%,ruler,Question Answering,QA,2,55.0,17.17319759394279,1.5083106517377418,0.0,True,True,False
+llama,ours001,Our τ.01,ruler,NIAH,NIAH,8,84.53125,16.486100662910353,1.5709782229295932,3.90625,False,True,True
+llama,ours001,Our τ.01,ruler,Aggregation \& Tracking,A&T,3,46.556666666666665,15.850188446978954,1.634059077799935,-1.2233333333333292,True,True,True
+llama,ours001,Our τ.01,ruler,Question Answering,QA,2,55.0,16.930217914272188,1.5299576760618672,0.0,True,True,False
+llama,ours01,Our τ.1,ruler,NIAH,NIAH,8,70.46875,14.499127530952036,1.786266454113788,17.96875,False,False,False
+llama,ours01,Our τ.1,ruler,Aggregation \& Tracking,A&T,3,40.0,14.437197420558839,1.7939869880662107,5.333333333333336,False,False,False
+llama,ours01,Our τ.1,ruler,Question Answering,QA,2,55.0,14.56204434673834,1.7787692605909835,0.0,True,True,True
+llama,full,Full,helmet,Retrieval-Augmented Generation,RAG,4,60.41666666666667,24.876758042078038,1.0,0.0,False,True,False
+llama,full,Full,helmet,Long-context QA,Long-context QA,2,48.56089743589744,24.721330847583772,1.0,0.0,False,True,False
+llama,full,Full,helmet,In-context Learning,ICL,5,77.0,23.817576795986426,1.0,0.0,False,True,False
+llama,full,Full,helmet,Recall/Reranking,Rec./Rank.,5,76.64958666666666,22.902144991519254,1.0,0.0,False,True,True
+llama,snapkv10,Snap 10%,helmet,Retrieval-Augmented Generation,RAG,4,61.041666666666664,15.3470325742438,1.620949061112148,-0.6249999999999929,True,True,True
+llama,snapkv10,Snap 10%,helmet,Long-context QA,Long-context QA,2,48.38095238095238,15.386919291885865,1.6066459034863667,0.1799450549450583,True,True,True
+llama,snapkv10,Snap 10%,helmet,In-context Learning,ICL,5,77.0,15.270871232588968,1.5596737365683673,0.0,True,True,False
+llama,snapkv10,Snap 10%,helmet,Recall/Reranking,Rec./Rank.,5,60.65932333333333,15.151628685767747,1.5115302431501463,15.990263333333331,False,False,False
+llama,snapkv25,Snap 25%,helmet,Retrieval-Augmented Generation,RAG,4,60.625,16.88810679133028,1.4730341505685427,-0.2083333333333286,True,True,False
+llama,snapkv25,Snap 25%,helmet,Long-context QA,Long-context QA,2,49.43162393162393,16.90893666495362,1.4620275264749523,-0.870726495726494,True,True,True
+llama,snapkv25,Snap 25%,helmet,In-context Learning,ICL,5,78.0,16.612715996979247,1.4336955378227898,-1.0,True,True,False
+llama,snapkv25,Snap 25%,helmet,Recall/Reranking,Rec./Rank.,5,71.75768333333333,16.428494606248385,1.3940501269549488,4.891903333333332,False,True,False
+llama,streamllm10,Str. 10%,helmet,Retrieval-Augmented Generation,RAG,4,53.54166666666667,15.400090293648343,1.6153644275928873,6.875,False,False,False
+llama,streamllm10,Str. 10%,helmet,Long-context QA,Long-context QA,2,42.41666666666667,15.48787274782265,1.5961734222706085,6.1442307692307665,False,False,False
+llama,streamllm10,Str. 10%,helmet,In-context Learning,ICL,5,75.0,15.355155465104396,1.551112709351165,2.0,False,True,False
+llama,streamllm10,Str. 10%,helmet,Recall/Reranking,Rec./Rank.,5,8.559383333333333,15.23613479295154,1.5031466512172182,68.09020333333333,False,False,False
+llama,streamllm25,Str. 25%,helmet,Retrieval-Augmented Generation,RAG,4,57.91666666666667,16.932876036864602,1.4691395595124415,2.5,False,True,False
+llama,streamllm25,Str. 25%,helmet,Long-context QA,Long-context QA,2,41.5,17.006553988534186,1.4536355139466164,7.060897435897438,False,False,False
+llama,streamllm25,Str. 25%,helmet,In-context Learning,ICL,5,73.0,16.696154895342058,1.426530656027342,4.0,False,True,False
+llama,streamllm25,Str. 25%,helmet,Recall/Reranking,Rec./Rank.,5,17.276336666666666,16.507665326796648,1.3873642661232382,59.37325,False,False,False
+llama,pyramidkv10,Pyr. 10%,helmet,Retrieval-Augmented Generation,RAG,4,61.041666666666664,15.430995298268657,1.612129195896339,-0.6249999999999929,True,True,False
+llama,pyramidkv10,Pyr. 10%,helmet,Long-context QA,Long-context QA,2,49.047008547008545,15.4229918100302,1.6028881524469514,-0.48611111111110716,True,True,True
+llama,pyramidkv10,Pyr. 10%,helmet,In-context Learning,ICL,5,75.0,15.271753023770298,1.5595836809903,2.0,False,True,False
+llama,pyramidkv10,Pyr. 10%,helmet,Recall/Reranking,Rec./Rank.,5,63.922203333333336,15.177597449390248,1.508944025422109,12.727383333333329,False,False,False
+llama,pyramidkv25,Pyr. 25%,helmet,Retrieval-Augmented Generation,RAG,4,60.41666666666667,16.994209269233536,1.463837337057814,0.0,True,True,False
+llama,pyramidkv25,Pyr. 25%,helmet,Long-context QA,Long-context QA,2,49.43162393162393,16.953643954669435,1.4581721141297728,-0.870726495726494,True,True,False
+llama,pyramidkv25,Pyr. 25%,helmet,In-context Learning,ICL,5,76.0,16.675840284202305,1.4282684644413257,1.0,False,True,False
+llama,pyramidkv25,Pyr. 25%,helmet,Recall/Reranking,Rec./Rank.,5,74.44052333333333,16.440747326816474,1.393011189592556,2.209063333333333,False,True,False
+llama,ours001,Our τ.01,helmet,Retrieval-Augmented Generation,RAG,4,60.416666666666664,16.99515990797423,1.46375545606992,7.105427357601002e-15,True,True,False
+llama,ours001,Our τ.01,helmet,Long-context QA,Long-context QA,2,48.88095238095238,16.730056519875127,1.4776597328416134,-0.3200549450549417,True,True,False
+llama,ours001,Our τ.01,helmet,In-context Learning,ICL,5,76.0,16.815112493673546,1.4164387425268468,1.0,False,True,False
+llama,ours001,Our τ.01,helmet,Recall/Reranking,Rec./Rank.,5,76.29537,16.038831973093608,1.4279185061567694,0.35421666666665885,True,True,True
+llama,ours01,Our τ.1,helmet,Retrieval-Augmented Generation,RAG,4,58.541666666666664,14.49785050603428,1.715892851269494,1.875000000000007,False,True,True
+llama,ours01,Our τ.1,helmet,Long-context QA,Long-context QA,2,47.861111111111114,14.445187785895541,1.711388679330426,0.6997863247863236,False,True,True
+llama,ours01,Our τ.1,helmet,In-context Learning,ICL,5,79.0,14.475739947409325,1.6453443404286203,-2.0,True,True,True
+llama,ours01,Our τ.1,helmet,Recall/Reranking,Rec./Rank.,5,54.245133333333335,14.268115874091606,1.605127488003201,22.40445333333333,False,False,False
+qwen,full,Full,longbench,Document QA,Doc QA,6,43.545,18.92248655191411,1.0,0.0,False,True,True
+qwen,full,Full,longbench,Summarization,Summarization,3,26.43,18.932994520698216,1.0,0.0,False,True,False
+qwen,full,Full,longbench,Few-shot Learning,Few-shot,3,69.20333333333333,18.921517673079123,1.0,0.0,False,True,False
+qwen,full,Full,longbench,Synthetic Tasks,Synthetic,2,54.5,18.935969207964334,1.0,0.0,False,True,False
+qwen,full,Full,longbench,Code,Code,2,63.589999999999996,18.865943801799965,1.0,0.0,False,True,False
+qwen,snapkv10,Snap 10%,longbench,Document QA,Doc QA,6,41.29333333333334,14.289526003363626,1.3242207297470836,2.251666666666665,False,True,False
+qwen,snapkv10,Snap 10%,longbench,Summarization,Summarization,3,21.293333333333333,14.301062783623046,1.3238872388127305,5.136666666666667,False,False,False
+qwen,snapkv10,Snap 10%,longbench,Few-shot Learning,Few-shot,3,62.22333333333333,14.289188823938646,1.3241841721189902,6.980000000000004,False,False,False
+qwen,snapkv10,Snap 10%,longbench,Synthetic Tasks,Synthetic,2,54.5,14.297461614847952,1.3244287495270683,0.0,True,True,False
+qwen,snapkv10,Snap 10%,longbench,Code,Code,2,59.455,14.23861306125579,1.3249846540977679,4.134999999999998,False,True,False
+qwen,snapkv25,Snap 25%,longbench,Document QA,Doc QA,6,42.80166666666666,15.141104603008854,1.2497428059610536,0.7433333333333394,False,True,False
+qwen,snapkv25,Snap 25%,longbench,Summarization,Summarization,3,23.923333333333332,15.151207100306811,1.2496030445201178,2.5066666666666677,False,True,False
+qwen,snapkv25,Snap 25%,longbench,Few-shot Learning,Few-shot,3,66.23666666666666,15.141130643083699,1.2496766667634733,2.9666666666666686,False,True,False
+qwen,snapkv25,Snap 25%,longbench,Synthetic Tasks,Synthetic,2,54.5,15.15265408116171,1.249680030081738,0.0,True,True,False
+qwen,snapkv25,Snap 25%,longbench,Code,Code,2,61.95,15.085585888878013,1.250594039951014,1.6399999999999935,False,True,False
+qwen,streamllm10,Str. 10%,longbench,Document QA,Doc QA,6,30.051666666666666,14.317548442194633,1.3216289526318947,13.493333333333336,False,False,False
+qwen,streamllm10,Str. 10%,longbench,Summarization,Summarization,3,19.696666666666665,14.318675856985566,1.322258755614018,6.733333333333334,False,False,False
+qwen,streamllm10,Str. 10%,longbench,Few-shot Learning,Few-shot,3,62.79666666666667,14.317096734269173,1.3216029774939553,6.406666666666666,False,False,False
+qwen,streamllm10,Str. 10%,longbench,Synthetic Tasks,Synthetic,2,23.25,14.292335529471673,1.3249037688009215,31.25,False,False,False
+qwen,streamllm10,Str. 10%,longbench,Code,Code,2,53.79,14.362792748244598,1.3135289307927762,9.799999999999997,False,False,False
+qwen,streamllm25,Str. 25%,longbench,Document QA,Doc QA,6,33.026666666666664,15.177352819283783,1.2467580333160535,10.518333333333338,False,False,False
+qwen,streamllm25,Str. 25%,longbench,Summarization,Summarization,3,22.46,15.178087167441845,1.2473900243049687,3.969999999999999,False,True,False
+qwen,streamllm25,Str. 25%,longbench,Few-shot Learning,Few-shot,3,65.86666666666666,15.177111833716038,1.2467139914621217,3.336666666666673,False,True,False
+qwen,streamllm25,Str. 25%,longbench,Synthetic Tasks,Synthetic,2,33.125,15.151048575284047,1.2498124544894298,21.375,False,False,False
+qwen,streamllm25,Str. 25%,longbench,Code,Code,2,57.849999999999994,15.226069704762526,1.239055394308285,5.740000000000002,False,False,False
+qwen,pyramidkv10,Pyr. 10%,longbench,Document QA,Doc QA,6,40.49666666666667,14.254759758139256,1.3274504006361558,3.048333333333332,False,True,False
+qwen,pyramidkv10,Pyr. 10%,longbench,Summarization,Summarization,3,22.17,14.254929300116759,1.3281717588415638,4.259999999999998,False,True,False
+qwen,pyramidkv10,Pyr. 10%,longbench,Few-shot Learning,Few-shot,3,61.88666666666667,14.255035541417008,1.3273567518021248,7.316666666666663,False,False,False
+qwen,pyramidkv10,Pyr. 10%,longbench,Synthetic Tasks,Synthetic,2,54.5,14.258265390896074,1.3280696276038586,0.0,True,True,True
+qwen,pyramidkv10,Pyr. 10%,longbench,Code,Code,2,59.995000000000005,14.2522412324546,1.323717687211134,3.5949999999999918,False,True,False
+qwen,pyramidkv25,Pyr. 25%,longbench,Document QA,Doc QA,6,42.095,15.0713955252998,1.255523187627159,1.4500000000000028,False,True,False
+qwen,pyramidkv25,Pyr. 25%,longbench,Summarization,Summarization,3,24.246666666666666,15.071434465608998,1.2562171546378536,2.1833333333333336,False,True,False
+qwen,pyramidkv25,Pyr. 25%,longbench,Few-shot Learning,Few-shot,3,66.87,15.071864321177442,1.255419851842253,2.3333333333333286,False,True,False
+qwen,pyramidkv25,Pyr. 25%,longbench,Synthetic Tasks,Synthetic,2,54.5,15.072718272835665,1.2563075130310828,0.0,True,True,False
+qwen,pyramidkv25,Pyr. 25%,longbench,Code,Code,2,62.11,15.067447454110528,1.2520995251025862,1.4799999999999969,False,True,False
+qwen,ours001,Our τ.01,longbench,Document QA,Doc QA,6,43.02333333333333,14.797214453913044,1.2787870724486363,0.5216666666666683,False,True,False
+qwen,ours001,Our τ.01,longbench,Summarization,Summarization,3,27.723333333333333,14.948825428888162,1.2665205444242305,-1.293333333333333,True,True,False
+qwen,ours001,Our τ.01,longbench,Few-shot Learning,Few-shot,3,69.75,15.16819601969685,1.2474468057050654,-0.5466666666666669,True,True,False
+qwen,ours001,Our τ.01,longbench,Synthetic Tasks,Synthetic,2,54.5,14.666542755938801,1.2910997174365957,0.0,True,True,False
+qwen,ours001,Our τ.01,longbench,Code,Code,2,64.205,14.72257778172322,1.2814293856351955,-0.615000000000002,True,True,True
+qwen,ours01,Our τ.1,longbench,Document QA,Doc QA,6,43.04666666666667,13.793581881419948,1.3718326910722756,0.49833333333333485,True,True,True
+qwen,ours01,Our τ.1,longbench,Summarization,Summarization,3,28.026666666666667,13.826251972685988,1.3693511848403088,-1.5966666666666676,True,True,True
+qwen,ours01,Our τ.1,longbench,Few-shot Learning,Few-shot,3,69.86,13.880874176889106,1.36313588265085,-0.6566666666666663,True,True,True
+qwen,ours01,Our τ.1,longbench,Synthetic Tasks,Synthetic,2,54.0,13.774204815808123,1.374741370640304,0.5,False,True,True
+qwen,ours01,Our τ.1,longbench,Code,Code,2,63.56,13.79773973040135,1.3673213272918572,0.02999999999999403,True,True,True
+qwen,full,Full,ruler,NIAH,NIAH,8,73.75,18.912319728683325,1.0,0.0,False,True,False
+qwen,full,Full,ruler,Aggregation \& Tracking,A&T,3,56.943333333333335,18.932706268353968,1.0,0.0,False,True,False
+qwen,full,Full,ruler,Question Answering,QA,2,42.5,18.935607682954192,1.0,0.0,False,True,False
+qwen,snapkv10,Snap 10%,ruler,NIAH,NIAH,8,45.3125,14.280705264629056,1.3243267316444105,28.4375,False,False,False
+qwen,snapkv10,Snap 10%,ruler,Aggregation \& Tracking,A&T,3,53.61,14.299995184287173,1.3239659191743796,3.3333333333333357,False,True,False
+qwen,snapkv10,Snap 10%,ruler,Question Answering,QA,2,37.5,14.297933680825823,1.324359736564431,5.0,False,True,True
+qwen,snapkv25,Snap 25%,ruler,NIAH,NIAH,8,51.25,15.130694812609045,1.2499306848039056,22.5,False,False,False
+qwen,snapkv25,Snap 25%,ruler,Aggregation \& Tracking,A&T,3,57.89,15.151097679759559,1.249593043918282,-0.9466666666666654,True,True,True
+qwen,snapkv25,Snap 25%,ruler,Question Answering,QA,2,40.0,15.153178457810085,1.24961292679785,2.5,False,True,False
+qwen,streamllm10,Str. 10%,ruler,NIAH,NIAH,8,6.875,14.329274383993516,1.3198379221357706,66.875,False,False,False
+qwen,streamllm10,Str. 10%,ruler,Aggregation \& Tracking,A&T,3,27.11,14.320124201254831,1.3221048925465988,29.833333333333336,False,False,False
+qwen,streamllm10,Str. 10%,ruler,Question Answering,QA,2,22.5,14.292960692222955,1.3248205246417126,20.0,False,False,False
+qwen,streamllm25,Str. 25%,ruler,NIAH,NIAH,8,22.03125,15.189752860538965,1.2450709305360137,51.71875,False,False,False
+qwen,streamllm25,Str. 25%,ruler,Aggregation \& Tracking,A&T,3,30.276666666666667,15.179156010389013,1.2472831991051365,26.666666666666668,False,False,False
+qwen,streamllm25,Str. 25%,ruler,Question Answering,QA,2,40.0,15.151508631543184,1.249750644865362,2.5,False,True,False
+qwen,pyramidkv10,Pyr. 10%,ruler,NIAH,NIAH,8,38.125,14.253709550382428,1.3268349310636758,35.625,False,False,False
+qwen,pyramidkv10,Pyr. 10%,ruler,Aggregation \& Tracking,A&T,3,52.0,14.253959281766718,1.328241921707478,4.943333333333335,False,True,False
+qwen,pyramidkv10,Pyr. 10%,ruler,Question Answering,QA,2,35.0,14.2586120244463,1.328011986755037,7.5,False,False,False
+qwen,pyramidkv25,Pyr. 25%,ruler,NIAH,NIAH,8,48.75,15.070180594713229,1.2549497738147848,25.0,False,False,False
+qwen,pyramidkv25,Pyr. 25%,ruler,Aggregation \& Tracking,A&T,3,54.666666666666664,15.070751912413884,1.256254922009496,2.276666666666671,False,True,False
+qwen,pyramidkv25,Pyr. 25%,ruler,Question Answering,QA,2,40.0,15.072412355082287,1.2563090258454392,2.5,False,True,False
+qwen,ours001,Our τ.01,ruler,NIAH,NIAH,8,74.375,16.375645661485446,1.1549052855463273,-0.625,True,True,True
+qwen,ours001,Our τ.01,ruler,Aggregation \& Tracking,A&T,3,56.723333333333336,16.33715548548877,1.1588740944022144,0.21999999999999886,True,True,False
+qwen,ours001,Our τ.01,ruler,Question Answering,QA,2,42.5,17.143601750297147,1.1045291391364702,0.0,True,True,False
+qwen,ours01,Our τ.1,ruler,NIAH,NIAH,8,72.1875,14.239498052957638,1.3281591568991515,1.5625,False,True,True
+qwen,ours01,Our τ.1,ruler,Aggregation \& Tracking,A&T,3,57.056666666666665,14.150303582138525,1.3379717373874662,-0.11333333333332973,True,True,True
+qwen,ours01,Our τ.1,ruler,Question Answering,QA,2,45.0,14.890319839145782,1.2716723272238641,-2.5,True,True,True
+qwen,full,Full,helmet,Retrieval-Augmented Generation,RAG,4,48.958333333333336,18.644215433769638,1.0,0.0,False,True,False
+qwen,full,Full,helmet,Long-context QA,Long-context QA,2,51.74242424242424,18.435395646577938,1.0,0.0,False,True,True
+qwen,full,Full,helmet,In-context Learning,ICL,5,76.0,18.204287740416706,1.0,0.0,False,True,False
+qwen,full,Full,helmet,Recall/Reranking,Rec./Rank.,5,39.27406666666667,18.257084685111685,1.0,0.0,False,True,False
+qwen,snapkv10,Snap 10%,helmet,Retrieval-Augmented Generation,RAG,4,46.666666666666664,14.296710863986629,1.304091242464332,2.2916666666666714,False,True,False
+qwen,snapkv10,Snap 10%,helmet,Long-context QA,Long-context QA,2,49.90909090909091,14.427037358964009,1.2778365500747386,1.8333333333333357,False,True,False
+qwen,snapkv10,Snap 10%,helmet,In-context Learning,ICL,5,74.0,14.347911547566394,1.2687761337296792,2.0,False,True,True
+qwen,snapkv10,Snap 10%,helmet,Recall/Reranking,Rec./Rank.,5,12.657266666666667,14.316620089904598,1.2752370720506663,26.616800000000005,False,False,False
+qwen,snapkv25,Snap 25%,helmet,Retrieval-Augmented Generation,RAG,4,49.166666666666664,15.053030973326209,1.2385688614344157,-0.2083333333333286,True,True,True
+qwen,snapkv25,Snap 25%,helmet,Long-context QA,Long-context QA,2,49.11363636363636,15.054697096015193,1.2245610475588762,2.6287878787878824,False,True,False
+qwen,snapkv25,Snap 25%,helmet,In-context Learning,ICL,5,75.0,14.919203676150312,1.2201916493383556,1.0,False,True,False
+qwen,snapkv25,Snap 25%,helmet,Recall/Reranking,Rec./Rank.,5,22.19199,14.995548673461945,1.2175002784274092,17.08207666666667,False,False,False
+qwen,streamllm10,Str. 10%,helmet,Retrieval-Augmented Generation,RAG,4,38.125,14.343930813040407,1.2997981987489609,10.833333333333336,False,False,False
+qwen,streamllm10,Str. 10%,helmet,Long-context QA,Long-context QA,2,46.32575757575758,14.403157397210304,1.2799551610918745,5.416666666666664,False,False,False
+qwen,streamllm10,Str. 10%,helmet,In-context Learning,ICL,5,70.0,14.370412064997096,1.2667895435481644,6.0,False,False,False
+qwen,streamllm10,Str. 10%,helmet,Recall/Reranking,Rec./Rank.,5,6.306746666666666,14.329142295127172,1.2741226452416672,32.96732,False,False,False
+qwen,streamllm25,Str. 25%,helmet,Retrieval-Augmented Generation,RAG,4,39.791666666666664,15.110795472985103,1.2338341463956375,9.166666666666671,False,False,False
+qwen,streamllm25,Str. 25%,helmet,Long-context QA,Long-context QA,2,47.32575757575758,15.012937914838808,1.2279672207500683,4.416666666666664,False,True,False
+qwen,streamllm25,Str. 25%,helmet,In-context Learning,ICL,5,75.0,14.939561986275727,1.2185288803741454,1.0,False,True,False
+qwen,streamllm25,Str. 25%,helmet,Recall/Reranking,Rec./Rank.,5,10.186746666666666,15.002773897278876,1.2169139393897723,29.087320000000005,False,False,False
+qwen,pyramidkv10,Pyr. 10%,helmet,Retrieval-Augmented Generation,RAG,4,47.291666666666664,14.217575841319068,1.3113498139103212,1.6666666666666714,False,True,True
+qwen,pyramidkv10,Pyr. 10%,helmet,Long-context QA,Long-context QA,2,48.95670995670996,14.19002329099125,1.2991800836776586,2.7857142857142847,False,True,False
+qwen,pyramidkv10,Pyr. 10%,helmet,In-context Learning,ICL,5,71.0,14.166891961062829,1.2849881110444343,5.0,False,True,True
+qwen,pyramidkv10,Pyr. 10%,helmet,Recall/Reranking,Rec./Rank.,5,10.25,14.172580823790105,1.2881976057928228,29.02406666666667,False,False,False
+qwen,pyramidkv25,Pyr. 25%,helmet,Retrieval-Augmented Generation,RAG,4,45.625,14.99293688134963,1.2435332437744064,3.3333333333333357,False,True,False
+qwen,pyramidkv25,Pyr. 25%,helmet,Long-context QA,Long-context QA,2,48.696969696969695,14.918365776317106,1.2357516850702315,3.0454545454545467,False,True,False
+qwen,pyramidkv25,Pyr. 25%,helmet,In-context Learning,ICL,5,75.0,14.87449003025032,1.2238596216337208,1.0,False,True,False
+qwen,pyramidkv25,Pyr. 25%,helmet,Recall/Reranking,Rec./Rank.,5,13.5,14.889228285016816,1.2261941542990498,25.77406666666667,False,False,False
+qwen,ours001,Our τ.01,helmet,Retrieval-Augmented Generation,RAG,4,48.541666666666664,16.395248785903235,1.1371718524820484,0.4166666666666714,True,True,False
+qwen,ours001,Our τ.01,helmet,Long-context QA,Long-context QA,2,50.82575757575758,16.111246728715265,1.1442563047414769,0.9166666666666643,False,True,False
+qwen,ours001,Our τ.01,helmet,In-context Learning,ICL,5,76.0,16.30288005865637,1.1166301705538675,0.0,True,True,False
+qwen,ours001,Our τ.01,helmet,Recall/Reranking,Rec./Rank.,5,40.474493333333335,15.861254550021378,1.1510492204468832,-1.2004266666666652,True,True,True
+qwen,ours01,Our τ.1,helmet,Retrieval-Augmented Generation,RAG,4,48.541666666666664,14.391041166769963,1.2955431936933504,0.4166666666666714,True,True,True
+qwen,ours01,Our τ.1,helmet,Long-context QA,Long-context QA,2,50.98133116883117,14.17624214082025,1.3004430556031155,0.7610930735930737,False,True,True
+qwen,ours01,Our τ.1,helmet,In-context Learning,ICL,5,76.0,14.355513828784405,1.2681042251455383,0.0,True,True,True
+qwen,ours01,Our τ.1,helmet,Recall/Reranking,Rec./Rank.,5,34.19085333333334,14.037077353217654,1.300632904251019,5.083213333333333,False,False,False

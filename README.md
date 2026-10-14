@@ -3,6 +3,9 @@
 Implementation of **RefineKV: Query-Adaptive KV Cache Compression via
 Attention-Error Bounds**.
 
+[Project website](https://kevin-lkw.github.io/RefineKV-release/)
+with interactive figures, decoding demos, and evaluation results.
+
 RefineKV reduces long-context decode work by adapting KV access to each query.
 Different queries need different parts of the context, so it retains the original
 KV cache and selectively refines contiguous prompt blocks at each decode step.

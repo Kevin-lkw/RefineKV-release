@@ -1,0 +1,26 @@
+/* Component styling for the centered academic project-page layout. */
+.paper-layout .f2-explorer{max-width:1080px;padding-top:46px;margin:0 auto;border-top:1px solid #ececec;scroll-margin-top:28px}
+.paper-layout .f2-heading{display:block;text-align:center;margin-bottom:28px}
+.paper-layout .f2-heading .eyebrow{display:block;margin:0 0 10px;color:#888;font-size:11px}
+.paper-layout .f2-heading h2{font-size:32px;margin:0 0 15px}
+.paper-layout .f2-heading p:not(.eyebrow){font-size:16px;max-width:790px;margin:0 auto;color:#555;line-height:1.7}
+.paper-layout .f2-heading>.text-link{font-size:12px;max-width:none;display:inline-block;margin:12px 0 0;color:#3273dc}
+.paper-layout .f2-controls{background:#f5f6f8;border-color:#e2e5e9;border-radius:7px}
+.paper-layout .f2-detail{background:#f7f8fa;border-color:#e0e4e9;border-radius:7px}
+.paper-layout .f2-plot-panel{border-color:#e0e4e9;border-radius:7px}
+.paper-layout .f2-sample-switch{border-color:#d8dee6}.paper-layout .f2-sample-switch button+button{border-color:#d8dee6}
+.paper-layout .f2-sample-switch button[aria-pressed=true]{background:#edf3fd;color:#2867bd;box-shadow:inset 0 -2px #3273dc}
+.paper-layout .f2-sample-switch button:hover{background:#f0f4fa}
+.paper-layout .f2-presets button,.paper-layout .f2-cluster-nav button,.paper-layout .f2-cluster-nav select{border-color:#d7dde5}
+.paper-layout .f2-presets button[aria-pressed=true],.paper-layout .f2-axis-controls button[aria-pressed=true]{background:#eaf1fc;color:#2867bd;border-color:#9dbbea}
+.paper-layout .f2-axis-controls button{border-color:#d7dde5}
+.paper-layout .f2-cluster-nav button:hover{background:#eaf1fc}
+.paper-layout .f2-stats,.paper-layout .f2-score-table{border-color:#dde3ea}
+.paper-layout .f2-token-readout{background:#edf2f9;color:#3d5875;border-color:#dbe3ee}
+.paper-layout .f2-status{color:#4a617c}
+.paper-layout .f2-formula{background:#f5f6f8;color:#4a4a4a}
+.paper-layout .f2-provenance{border-color:#e2e5e9}
+.paper-layout .f2-provenance .details-body{font-size:13px}
+.paper-layout .f2-score-table th{border-color:#ced8e5}.paper-layout .f2-score-table td{border-color:#e2e7ee}
+@media(max-width:800px){.paper-layout .f2-explorer{margin:0 auto;padding-top:35px}.paper-layout .f2-detail{scroll-margin-top:22px}}
+@media(max-width:700px){.paper-layout .f2-heading h2{font-size:27px}.paper-layout .f2-heading p:not(.eyebrow){font-size:14px}.paper-layout .f2-provenance .details-body{font-size:11px}}
