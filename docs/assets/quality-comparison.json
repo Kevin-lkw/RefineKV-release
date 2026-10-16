@@ -1,0 +1,1184 @@
+{
+  "models": {
+    "llama": "Llama-3.1-8B-Instruct",
+    "qwen": "Qwen2.5-7B-Instruct"
+  },
+  "benchmarks": {
+    "longbench": "LongBench",
+    "ruler": "RULER",
+    "helmet": "HELMET"
+  },
+  "showcase_budgets_ms": {
+    "qwen": 15,
+    "llama": 17
+  },
+  "points": [
+    {
+      "id": 0,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 49.009375,
+      "tpot_ms": 14.749707287029153
+    },
+    {
+      "id": 1,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 48.23375,
+      "tpot_ms": 14.273667665249723
+    },
+    {
+      "id": 2,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 49.06125,
+      "tpot_ms": 25.900605320780343
+    },
+    {
+      "id": 3,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 46.190000000000005,
+      "tpot_ms": 15.454448312488642
+    },
+    {
+      "id": 4,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 47.76875,
+      "tpot_ms": 17.172857506848807
+    },
+    {
+      "id": 5,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 48.469374999999985,
+      "tpot_ms": 20.00343255459152
+    },
+    {
+      "id": 6,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 73.34615384615384,
+      "tpot_ms": 25.899992895401304
+    },
+    {
+      "id": 7,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 66.80153846153847,
+      "tpot_ms": 15.453879117069627
+    },
+    {
+      "id": 8,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 69.82692307692308,
+      "tpot_ms": 17.172865471441607
+    },
+    {
+      "id": 9,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 73.79461538461538,
+      "tpot_ms": 20.003464825591244
+    },
+    {
+      "id": 10,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 71.22461538461538,
+      "tpot_ms": 16.40767742098185
+    },
+    {
+      "id": 11,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 69.18977467948719,
+      "tpot_ms": 23.909268925063007
+    },
+    {
+      "id": 12,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 64.32657425595238,
+      "tpot_ms": 15.267154279533157
+    },
+    {
+      "id": 13,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 68.13447903311966,
+      "tpot_ms": 16.661022094460407
+    },
+    {
+      "id": 14,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 69.46532259615384,
+      "tpot_ms": 18.984786239126976
+    },
+    {
+      "id": 15,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 68.80658883928571,
+      "tpot_ms": 16.606904687842686
+    },
+    {
+      "id": 16,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 62.25715972222222,
+      "tpot_ms": 14.412566043964555
+    },
+    {
+      "id": 17,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 54.7305321969697,
+      "tpot_ms": 18.359657197242274
+    },
+    {
+      "id": 18,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 54.88691553030303,
+      "tpot_ms": 16.164010102777013
+    },
+    {
+      "id": 19,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 52.94272472943723,
+      "tpot_ms": 14.242475303670666
+    },
+    {
+      "id": 20,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 44.985698863636365,
+      "tpot_ms": 14.335223522576843
+    },
+    {
+      "id": 21,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 48.803368087121214,
+      "tpot_ms": 14.993454989587281
+    },
+    {
+      "id": 22,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 52.312257196969696,
+      "tpot_ms": 16.122970018639332
+    },
+    {
+      "id": 23,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 49.021875,
+      "tpot_ms": 18.91889261952158
+    },
+    {
+      "id": 24,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 49.248125,
+      "tpot_ms": 14.869537009034834
+    },
+    {
+      "id": 25,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 49.19125,
+      "tpot_ms": 13.814172426853995
+    },
+    {
+      "id": 26,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 45.38875,
+      "tpot_ms": 14.286253762192144
+    },
+    {
+      "id": 27,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 47.511874999999996,
+      "tpot_ms": 15.137507549269007
+    },
+    {
+      "id": 28,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 48.484375,
+      "tpot_ms": 16.39407693512603
+    },
+    {
+      "id": 29,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "full",
+      "method": "Full Attention",
+      "setting": "",
+      "score": 65.06384615384616,
+      "tpot_ms": 18.920607076956685
+    },
+    {
+      "id": 30,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "ours001",
+      "method": "RefineKV",
+      "setting": "τ = 0.01",
+      "score": 65.39769230769231,
+      "tpot_ms": 16.484910403764935
+    },
+    {
+      "id": 31,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 64.51307692307692,
+      "tpot_ms": 14.319041142182174
+    },
+    {
+      "id": 32,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "10%",
+      "score": 46.02538461538461,
+      "tpot_ms": 14.287807310118893
+    },
+    {
+      "id": 33,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "25%",
+      "score": 51.05153846153847,
+      "tpot_ms": 15.138862188905478
+    },
+    {
+      "id": 34,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "snapkv",
+      "method": "SnapKV",
+      "setting": "50%",
+      "score": 59.36538461538461,
+      "tpot_ms": 16.395078113578915
+    },
+    {
+      "id": 35,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 41.22125,
+      "tpot_ms": 15.51894337662527
+    },
+    {
+      "id": 36,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 43.2925,
+      "tpot_ms": 17.229639371974386
+    },
+    {
+      "id": 37,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 45.58499999999999,
+      "tpot_ms": 20.062833986432654
+    },
+    {
+      "id": 38,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 19.576923076923077,
+      "tpot_ms": 15.517205602682159
+    },
+    {
+      "id": 39,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 34.43615384615385,
+      "tpot_ms": 17.22796750418394
+    },
+    {
+      "id": 40,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 50.09,
+      "tpot_ms": 20.06150746899424
+    },
+    {
+      "id": 41,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 44.79980729166667,
+      "tpot_ms": 15.345784872532397
+    },
+    {
+      "id": 42,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 47.878021875,
+      "tpot_ms": 16.73523207720127
+    },
+    {
+      "id": 43,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 54.103096207264954,
+      "tpot_ms": 19.061607534702432
+    },
+    {
+      "id": 44,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 36.366875,
+      "tpot_ms": 14.320179061397784
+    },
+    {
+      "id": 45,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 40.318124999999995,
+      "tpot_ms": 15.180246904954343
+    },
+    {
+      "id": 46,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 43.248125,
+      "tpot_ms": 16.431795891202498
+    },
+    {
+      "id": 47,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 13.948461538461537,
+      "tpot_ms": 14.321576081550658
+    },
+    {
+      "id": 48,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 26.698461538461537,
+      "tpot_ms": 15.181423706043471
+    },
+    {
+      "id": 49,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 42.31,
+      "tpot_ms": 16.433532452250585
+    },
+    {
+      "id": 50,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "10%",
+      "score": 39.16782803030303,
+      "tpot_ms": 14.354988115450222
+    },
+    {
+      "id": 51,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "25%",
+      "score": 42.4844946969697,
+      "tpot_ms": 15.011296071211941
+    },
+    {
+      "id": 52,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "streamllm",
+      "method": "StreamingLLM",
+      "setting": "50%",
+      "score": 45.11327490530303,
+      "tpot_ms": 16.142104598469498
+    },
+    {
+      "id": 53,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 59.66382451923077,
+      "tpot_ms": 27.28667310264658
+    },
+    {
+      "id": 54,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 61.739475858516485,
+      "tpot_ms": 27.60716334489102
+    },
+    {
+      "id": 55,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 49.20375,
+      "tpot_ms": 29.593717626763492
+    },
+    {
+      "id": 56,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 49.131875,
+      "tpot_ms": 30.006758546993037
+    },
+    {
+      "id": 57,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 64.78,
+      "tpot_ms": 29.62019240365094
+    },
+    {
+      "id": 58,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 67.78,
+      "tpot_ms": 29.92358762527542
+    },
+    {
+      "id": 59,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 21.814949233405482,
+      "tpot_ms": 18.287983123295746
+    },
+    {
+      "id": 60,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 23.142925099206348,
+      "tpot_ms": 18.505544978007304
+    },
+    {
+      "id": 61,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 48.801875,
+      "tpot_ms": 18.80896678954337
+    },
+    {
+      "id": 62,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 48.89625,
+      "tpot_ms": 19.025428580385373
+    },
+    {
+      "id": 63,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "2K",
+      "score": 14.19,
+      "tpot_ms": 18.81406629206192
+    },
+    {
+      "id": 64,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "4K",
+      "score": 16.31,
+      "tpot_ms": 19.035944231215556
+    },
+    {
+      "id": 65,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 56.52413328373016,
+      "tpot_ms": 27.123712959037796
+    },
+    {
+      "id": 66,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 49.133125,
+      "tpot_ms": 29.38122471569509
+    },
+    {
+      "id": 67,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 62.36,
+      "tpot_ms": 29.36283677235878
+    },
+    {
+      "id": 68,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 20.87322720959596,
+      "tpot_ms": 18.166939412843757
+    },
+    {
+      "id": 69,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 48.625,
+      "tpot_ms": 18.68791131375243
+    },
+    {
+      "id": 70,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "1K",
+      "score": 13.2,
+      "tpot_ms": 18.69035660791278
+    },
+    {
+      "id": 71,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 48.553749999999994,
+      "tpot_ms": 22.02154216802372
+    },
+    {
+      "id": 72,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.70",
+      "score": 48.830625,
+      "tpot_ms": 22.465621749558654
+    },
+    {
+      "id": 73,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.90/0.60",
+      "score": 48.750625,
+      "tpot_ms": 22.119890555456678
+    },
+    {
+      "id": 74,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.95/0.70",
+      "score": 61.94230769230769,
+      "tpot_ms": 22.652298917650484
+    },
+    {
+      "id": 75,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 53.0065,
+      "tpot_ms": 21.981093859821968
+    },
+    {
+      "id": 76,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.70",
+      "score": 61.731101339285715,
+      "tpot_ms": 22.43169380230866
+    },
+    {
+      "id": 77,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 55.608711755952385,
+      "tpot_ms": 21.864850533362073
+    },
+    {
+      "id": 78,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 46.2325,
+      "tpot_ms": 15.516732801534957
+    },
+    {
+      "id": 79,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 47.795625,
+      "tpot_ms": 17.235531700458118
+    },
+    {
+      "id": 80,
+      "model": "llama",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 48.513125,
+      "tpot_ms": 20.169802790434684
+    },
+    {
+      "id": 81,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 66.53846153846153,
+      "tpot_ms": 15.531167508428748
+    },
+    {
+      "id": 82,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 70.31384615384614,
+      "tpot_ms": 17.24931149858918
+    },
+    {
+      "id": 83,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 72.33307692307692,
+      "tpot_ms": 20.18391134507922
+    },
+    {
+      "id": 84,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 64.8044812767094,
+      "tpot_ms": 15.301044823683611
+    },
+    {
+      "id": 85,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 68.29578319978633,
+      "tpot_ms": 16.716691440085434
+    },
+    {
+      "id": 86,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 69.86027081043956,
+      "tpot_ms": 19.107590781387113
+    },
+    {
+      "id": 87,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 45.258750000000006,
+      "tpot_ms": 14.254966645008636
+    },
+    {
+      "id": 88,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 47.44625,
+      "tpot_ms": 15.071162560378157
+    },
+    {
+      "id": 89,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 48.015,
+      "tpot_ms": 16.341674720428678
+    },
+    {
+      "id": 90,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 40.84615384615385,
+      "tpot_ms": 14.254521407480938
+    },
+    {
+      "id": 91,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 48.76923076923077,
+      "tpot_ms": 15.070655785008618
+    },
+    {
+      "id": 92,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 52.03846153846154,
+      "tpot_ms": 16.34146271814207
+    },
+    {
+      "id": 93,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "10%",
+      "score": 43.33313041125541,
+      "tpot_ms": 14.184232116970215
+    },
+    {
+      "id": 94,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "25%",
+      "score": 45.14962121212121,
+      "tpot_ms": 14.914191915898027
+    },
+    {
+      "id": 95,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "pyramidkv",
+      "method": "PyramidKV",
+      "setting": "50%",
+      "score": 48.18243948863637,
+      "tpot_ms": 16.052004452383642
+    },
+    {
+      "id": 96,
+      "model": "qwen",
+      "benchmark": "longbench",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 48.56717916666667,
+      "tpot_ms": 20.57448324309902
+    },
+    {
+      "id": 97,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 51.01926923076923,
+      "tpot_ms": 20.612089602323305
+    },
+    {
+      "id": 98,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "doublep",
+      "method": "Double-P",
+      "setting": "0.85/0.50",
+      "score": 45.70831240530303,
+      "tpot_ms": 20.696142120349187
+    },
+    {
+      "id": 100,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "512",
+      "score": 57.62,
+      "tpot_ms": 29.330261804445467
+    },
+    {
+      "id": 102,
+      "model": "qwen",
+      "benchmark": "ruler",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "512",
+      "score": 11.4,
+      "tpot_ms": 18.619093589609207
+    },
+    {
+      "id": 103,
+      "model": "llama",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "512",
+      "score": 50.62046140873016,
+      "tpot_ms": 27.0851750617675
+    },
+    {
+      "id": 104,
+      "model": "qwen",
+      "benchmark": "helmet",
+      "group": "quest",
+      "method": "Quest",
+      "setting": "512",
+      "score": 16.358484501262627,
+      "tpot_ms": 18.111166601311343
+    },
+    {
+      "id": 114,
+      "model": "llama",
+      "benchmark": "ruler",
+      "group": "ours01",
+      "method": "RefineKV",
+      "setting": "τ = 0.1",
+      "score": 61.05769230769231,
+      "tpot_ms": 14.494515477136114
+    }
+  ],
+  "provenance": {
+    "source": "llama/result/main_experiment_figures_helmet_quality20_20260925_logx/points_128k.csv",
+    "sha256": "f30557e0230f59aabcbfac86dc97f7972a85525f9da70543efcc88db26fab099",
+    "table1_sha256": "424e723cde5092f9c88be0ef936086711d1fc585bd29cce008213976c4760c10",
+    "table1_macro_pairs_verified": 54,
+    "rounded_plot_scores_replaced_by_table_macros": [
+      {
+        "model": "llama",
+        "benchmark": "ruler",
+        "method": "streamllm10",
+        "plot_score": 19.58,
+        "table_task_macro": 19.576923076923077
+      },
+      {
+        "model": "llama",
+        "benchmark": "ruler",
+        "method": "streamllm25",
+        "plot_score": 34.44,
+        "table_task_macro": 34.43615384615385
+      },
+      {
+        "model": "qwen",
+        "benchmark": "ruler",
+        "method": "snapkv10",
+        "plot_score": 46.03,
+        "table_task_macro": 46.02538461538461
+      },
+      {
+        "model": "qwen",
+        "benchmark": "ruler",
+        "method": "streamllm10",
+        "plot_score": 13.95,
+        "table_task_macro": 13.948461538461537
+      },
+      {
+        "model": "qwen",
+        "benchmark": "ruler",
+        "method": "streamllm25",
+        "plot_score": 26.7,
+        "table_task_macro": 26.698461538461537
+      }
+    ],
+    "aggregation": "Unweighted task macro for both task score and steady TPOT; 0–100 score scale.",
+    "latency_protocol": "128 output tokens, one warmup and two measured requests per task/config; 126 steady decode intervals; prefill excluded. LongBench/RULER: 130944 input tokens. HELMET: per-task 83341–130944 input tokens.",
+    "helmet_quality": "20 source samples per task, 16 non-citation tasks; matches bundled Table 1.",
+    "selection": "Independently maximize score among measured RefineKV and eligible non-Full baselines with TPOT <= budget. Break score ties by lower TPOT. No interpolation. Full Attention remains a reference even if outside budget.",
+    "presentation": "Three benchmark cards per model. Fixed, labeled budgets: Qwen 15 ms/token; Llama 17 ms/token. Model switching is the only comparison control. The complete quality/latency trade-offs remain in Figure 4 and Table 1.",
+    "excluded": [
+      {
+        "model": "llama",
+        "benchmark": "longbench",
+        "method": "quest",
+        "setting": "512†",
+        "reason": "LongBench uses partial quality evaluation"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "longbench",
+        "method": "quest",
+        "setting": "512†",
+        "reason": "LongBench uses partial quality evaluation"
+      },
+      {
+        "model": "llama",
+        "benchmark": "ruler",
+        "method": "doublep",
+        "setting": "0.85/0.70‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "llama",
+        "benchmark": "ruler",
+        "method": "doublep",
+        "setting": "0.90/0.60‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "llama",
+        "benchmark": "helmet",
+        "method": "doublep",
+        "setting": "0.90/0.60‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "longbench",
+        "method": "doublep",
+        "setting": "0.85/0.70‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "longbench",
+        "method": "doublep",
+        "setting": "0.90/0.60‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "ruler",
+        "method": "doublep",
+        "setting": "0.85/0.70‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "ruler",
+        "method": "doublep",
+        "setting": "0.90/0.60‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "helmet",
+        "method": "doublep",
+        "setting": "0.85/0.70‡",
+        "reason": "one-input latency screen"
+      },
+      {
+        "model": "qwen",
+        "benchmark": "helmet",
+        "method": "doublep",
+        "setting": "0.90/0.60‡",
+        "reason": "one-input latency screen"
+      }
+    ]
+  }
+}

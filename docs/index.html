@@ -16,12 +16,14 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="figure2.css">
   <link rel="stylesheet" href="paper-theme.css">
+  <link rel="stylesheet" href="quality.css">
   <script defer src="app.js"></script>
   <script defer src="figure2.js"></script>
+  <script defer src="quality.js"></script>
 </head>
 <body class="paper-layout">
 <a class="skip-link" href="#main">Skip to content</a>
-<aside class="contents" aria-label="Table of contents"><p>Contents</p><nav><a data-section-link href="#overview">Abstract</a><a data-section-link href="#motivation">Motivation</a><a data-section-link href="#method">Method</a><a data-section-link href="#figure2">Interactive Figure 2</a><a data-section-link href="#demo">Decoding Demo</a><a data-section-link href="#results">Evaluation</a><a data-section-link href="#resources">BibTeX</a></nav></aside>
+<aside class="contents" aria-label="Table of contents"><p>Contents</p><nav><a data-section-link href="#overview">Abstract</a><a data-section-link href="#demo">Decoding Demo</a><a data-section-link href="#quality">Quality Comparison</a><a data-section-link href="#motivation">Motivation</a><a data-section-link href="#method">Method</a><a data-section-link href="#figure2">Interactive Figure 2</a><a data-section-link href="#results">Evaluation</a><a data-section-link href="#resources">BibTeX</a></nav></aside>
 <main id="main">
   <header class="publication-header" id="top">
     <h1 id="project-title">RefineKV: Query-Adaptive KV Cache<br class="title-break"> Compression via Attention-Error Bounds</h1>
@@ -33,7 +35,7 @@
       <a class="publication-button" href="https://github.com/Kevin-lkw/RefineKV-vllm" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5m6-5v5M7 8h10v3a5 5 0 0 1-10 0zM12 16v5"/></svg><span>vLLM Plugin</span></a>
     </div>
     <p class="tldr"><strong>TL;DR:</strong> RefineKV adapts KV cache access to each decoding query. An attention-error bound selects which clusters to expand, delivering up to <strong>1.76× faster decoding</strong> while retaining near-full-attention quality.</p>
-    <nav class="page-nav" aria-label="Page sections"><a data-section-link href="#overview">Abstract</a><a data-section-link href="#motivation">Motivation</a><a data-section-link href="#method">Method</a><a data-section-link href="#figure2">Interactive Figure 2</a><a data-section-link href="#demo">Decoding Demo</a><a data-section-link href="#results">Evaluation</a><a data-section-link href="#resources">BibTeX</a></nav>
+    <nav class="page-nav" aria-label="Page sections"><a data-section-link href="#overview">Abstract</a><a data-section-link href="#demo">Decoding Demo</a><a data-section-link href="#quality">Quality Comparison</a><a data-section-link href="#motivation">Motivation</a><a data-section-link href="#method">Method</a><a data-section-link href="#figure2">Interactive Figure 2</a><a data-section-link href="#results">Evaluation</a><a data-section-link href="#resources">BibTeX</a></nav>
   </header>
 
   <section id="overview" class="paper-section abstract-section">
@@ -42,6 +44,166 @@
       <p>Repeatedly accessing the full key–value (KV) cache is a major bottleneck in long-context language model decoding. We find that small query-specific subsets can accurately approximate full attention, yet their union covers nearly the entire cache, motivating query-adaptive access for the KV cache. A natural approach is to split the KV cache into clusters, using compact representatives for clusters that incur negligible error while expanding the rest to their original KV entries.</p>
       <p>We derive a principled selection criterion, an upper bound on attention-output error, which reveals two complementary factors governing the error: <em>importance</em> measures the impact of a cluster, while <em>distortion</em> measures how faithfully the cluster can be represented. Based on this criterion, we propose <span class="method-name">RefineKV</span>, a decoding-time query-adaptive KV compression method. Experiments on two models and three benchmarks demonstrate that <span class="method-name">RefineKV</span> retains near-full-attention quality while achieving up to <strong>11.7× speedup in the attention phase</strong> and <strong>1.76× faster decoding</strong>, establishing a new quality–latency Pareto frontier.</p>
     </div>
+  </section>
+
+  <section id="demo" class="paper-section demo-section">
+    <h2>Decoding Speed Comparison</h2>
+    <p class="section-intro">Full Attention and RefineKV generate 256 tokens from the same 128K context on the same GPU.</p>
+    <p class="section-bridge">Selective access is useful when it reduces real decoding time. This replay uses measured token-arrival times: RefineKV reaches 256 tokens first, then waits while Full Attention finishes.</p>
+    <figure class="media-figure"><div class="video-frame"><video id="decode-video" class="demo-video" controls muted playsinline loop preload="none" poster="assets/decoding-poster.png" aria-label="Recorded Full Attention versus RefineKV decoding comparison"><source src="assets/decoding.mp4" type="video/mp4">Your browser does not support video playback.</video></div><figcaption>Recorded decoding with Llama-3.1-8B. RefineKV finishes first; Full Attention continues until all 256 tokens are generated.</figcaption></figure>
+    <div class="demo-summary"><span><strong>1.83×</strong> faster in this example</span><span>Full Attention: <b>23.03</b> ms/token</span><span>RefineKV: <b>12.56</b> ms/token</span></div>
+    <details class="protocol"><summary>How this demo was measured <span aria-hidden="true">+</span></summary><div class="details-body"><p>This replay uses real token-arrival timestamps from a LongBench-v2 literary-QA prompt: 130,801 input tokens and 256 output tokens. Both methods run sequentially on the same NVIDIA RTX PRO 6000 Blackwell GPU, using BF16 and vLLM 0.31.0.</p><p>Each method has one warmup and three measured runs; the video shows the median-TPOT run for each, aligned at the first output token. Playback is at 0.5× speed; prefill is excluded. RefineKV uses ε = 0.01 and GQA-mean. At 3.20 seconds of decode time, RefineKV has produced 256 tokens and Full Attention 140.</p><p>This is a separate vLLM demonstration. The paper’s 1.76× result below uses its benchmark protocol and GQA-any. This demo measures speed, not answer correctness or output equivalence.</p></div></details>
+    <div class="latency-breakdown" id="figure5">
+      <h3>Latency Breakdown</h3>
+      <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/figure5-latency.svg" aria-label="Enlarge Figure 5: latency breakdown"><img src="assets/figure5-latency.svg" width="1351" height="545" loading="lazy" alt="Figure 5: Llama-3.1-8B-Instruct at 128K context. BF16 profiled GPU time falls from 24.19 to 13.99 ms per step, with 11.22 times attention acceleration. FP8 falls from 19.32 to 9.05 ms, with 11.76 times attention acceleration. Bars separate attention, selection, GEMV, and other kernels."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><strong>Figure 5.</strong> Latency breakdown for Llama-3.1-8B-Instruct with 128K input and τ = 0.01. Hatched regions indicate the ideal attention latency implied by the KV-access budget.</figcaption></figure>
+      <p class="figure-note">RefineKV reduces attention time substantially; GEMV becomes the main remaining cost. These bars show profiled GPU kernel time for one representative request, separate from the wall-clock decoding demo above.</p>
+
+    </div>
+  </section>
+
+  <section id="quality" class="paper-section quality-section" aria-labelledby="quality-heading">
+    <h2 id="quality-heading">Task Quality at a Glance</h2>
+    <p class="section-intro">Compare scores across three benchmarks, then see how close RefineKV stays to Full Attention.</p>
+    <div class="qg-models" role="group" aria-label="Model for quality comparison">
+      <button type="button" data-quality-model="qwen" aria-pressed="true" aria-controls="quality-qwen">Qwen2.5-7B</button>
+      <button type="button" data-quality-model="llama" aria-pressed="false" aria-controls="quality-llama">Llama-3.1-8B</button>
+    </div>
+    <!-- quality-cards:start -->
+    <div class="qg-panel" id="quality-qwen" data-quality-panel="qwen">
+      <p class="qg-context"><strong>Qwen2.5-7B-Instruct</strong><span>15 ms/token budget</span></p>
+      <div class="qg-grid">
+        <article class="qg-card" data-benchmark="longbench" data-budget="15">
+          <h3>LongBench</h3>
+          <p class="qg-gain"><strong>+3.86</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
+          <p class="qg-ratio">1.09× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="24">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.87 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.2481250000%"></span></span><strong class="qg-score">49.25</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="26">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">14.29 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:45.3887500000%"></span></span><strong class="qg-score">45.39</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="23">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.92 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0218750000%"></span></span><strong class="qg-score">49.02</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.23 points above</strong> Full Attention</p><p class="qg-speed"><strong>1.27× faster</strong> decoding</p></div>
+        </article>
+        <article class="qg-card" data-benchmark="ruler" data-budget="15">
+          <h3>RULER</h3>
+          <p class="qg-gain"><strong>+18.49</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
+          <p class="qg-ratio">1.40× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="31">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.32 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:64.5130769231%"></span></span><strong class="qg-score">64.51</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="32">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">14.29 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:46.0253846154%"></span></span><strong class="qg-score">46.03</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="29">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.92 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:65.0638461538%"></span></span><strong class="qg-score">65.06</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.55 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.32× faster</strong> decoding</p></div>
+        </article>
+        <article class="qg-card" data-benchmark="helmet" data-budget="15">
+          <h3>HELMET</h3>
+          <p class="qg-gain"><strong>+4.14</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
+          <p class="qg-ratio">1.08× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="19">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.24 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:52.9427247294%"></span></span><strong class="qg-score">52.94</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="21">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>25%</small></span><span class="qg-time">14.99 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.8033680871%"></span></span><strong class="qg-score">48.80</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="17">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.36 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:54.7305321970%"></span></span><strong class="qg-score">54.73</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>1.79 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.29× faster</strong> decoding</p></div>
+        </article>
+      </div>
+    </div>
+    <div class="qg-panel" id="quality-llama" data-quality-panel="llama" hidden>
+      <p class="qg-context"><strong>Llama-3.1-8B-Instruct</strong><span>17 ms/token budget</span></p>
+      <div class="qg-grid">
+        <article class="qg-card" data-benchmark="longbench" data-budget="17">
+          <h3>LongBench</h3>
+          <p class="qg-gain"><strong>+2.78</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. PyramidKV 10% within this budget</p>
+          <p class="qg-ratio">1.06× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="0">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.75 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0093750000%"></span></span><strong class="qg-score">49.01</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="78">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>10%</small></span><span class="qg-time">15.52 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:46.2325000000%"></span></span><strong class="qg-score">46.23</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="2">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">25.90 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0612500000%"></span></span><strong class="qg-score">49.06</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.05 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.76× faster</strong> decoding</p></div>
+        </article>
+        <article class="qg-card" data-benchmark="ruler" data-budget="17">
+          <h3>RULER</h3>
+          <p class="qg-gain"><strong>+4.42</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
+          <p class="qg-ratio">1.07× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="10">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">16.41 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:71.2246153846%"></span></span><strong class="qg-score">71.22</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="7">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">15.45 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:66.8015384615%"></span></span><strong class="qg-score">66.80</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="6">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">25.90 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:73.3461538462%"></span></span><strong class="qg-score">73.35</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>2.12 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.58× faster</strong> decoding</p></div>
+        </article>
+        <article class="qg-card" data-benchmark="helmet" data-budget="17">
+          <h3>HELMET</h3>
+          <p class="qg-gain"><strong>+0.51</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
+          <p class="qg-ratio">1.01× the baseline score</p>
+          <div class="qg-score-label">Task score <span>0–100</span></div>
+          <div class="qg-row qg-ours" data-point="15">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">16.61 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:68.8065888393%"></span></span><strong class="qg-score">68.81</strong></div>
+          </div>
+          <div class="qg-row qg-baseline" data-point="85">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.72 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:68.2957831998%"></span></span><strong class="qg-score">68.30</strong></div>
+          </div>
+          <div class="qg-row qg-full" data-point="11">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">23.91 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:69.1897746795%"></span></span><strong class="qg-score">69.19</strong></div>
+          </div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.38 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.44× faster</strong> decoding</p></div>
+        </article>
+      </div>
+    </div>
+    <!-- quality-cards:end -->
+    <p class="qg-note">RefineKV and the best efficient-attention baseline fit within the shown time budget. Full Attention is the quality reference and takes longer. Higher task scores are better.</p>
+    <details class="protocol"><summary>Comparison details <span aria-hidden="true">+</span></summary><div class="details-body"><p>These examples use a fixed budget of 15 ms per output token for Qwen and 17 ms for Llama. Each card shows the highest-scoring measured RefineKV configuration (τ = 0.01 or 0.1) and the highest-scoring complete baseline configuration within that budget. Baselines include SnapKV, StreamingLLM, PyramidKV, Quest, and Double-P. Actual times are shown beside each method.</p><p>Scores are task averages on a shared 0–100 scale. Differences and ratios use unrounded scores. Incomplete evaluations and preliminary single-input timing results are excluded. Timings follow the paper’s 128-output-token decode protocol, excluding prefill; they are separate from the vLLM video. Figure 4 and Table 1 below show the wider quality–latency trade-offs.</p></div></details>
+    <p id="quality-status" class="sr-only" aria-live="polite"></p>
+    <noscript><p class="qg-note">Showing Qwen results. Enable JavaScript to switch models.</p></noscript>
   </section>
 
   <section id="motivation" class="paper-section motivation-section">
@@ -121,21 +283,6 @@
 
       </div>
     </section>
-
-  <section id="demo" class="paper-section demo-section">
-    <h2>Decoding Speed Comparison</h2>
-    <p class="section-intro">Full Attention and RefineKV generate 256 tokens from the same 128K context on the same GPU.</p>
-    <p class="section-bridge">Selective access is useful when it reduces real decoding time. This replay uses measured token-arrival times: RefineKV reaches 256 tokens first, then waits while Full Attention finishes.</p>
-    <figure class="media-figure"><div class="video-frame"><video id="decode-video" class="demo-video" controls muted playsinline loop preload="none" poster="assets/decoding-poster.png" aria-label="Recorded Full Attention versus RefineKV decoding comparison"><source src="assets/decoding.mp4" type="video/mp4">Your browser does not support video playback.</video></div><figcaption>Recorded decoding with Llama-3.1-8B. RefineKV finishes first; Full Attention continues until all 256 tokens are generated.</figcaption></figure>
-    <div class="demo-summary"><span><strong>1.83×</strong> faster in this example</span><span>Full Attention: <b>23.03</b> ms/token</span><span>RefineKV: <b>12.56</b> ms/token</span></div>
-    <details class="protocol"><summary>How this demo was measured <span aria-hidden="true">+</span></summary><div class="details-body"><p>This replay uses real token-arrival timestamps from a LongBench-v2 literary-QA prompt: 130,801 input tokens and 256 output tokens. Both methods run sequentially on the same NVIDIA RTX PRO 6000 Blackwell GPU, using BF16 and vLLM 0.31.0.</p><p>Each method has one warmup and three measured runs; the video shows the median-TPOT run for each, aligned at the first output token. Playback is at 0.5× speed; prefill is excluded. RefineKV uses ε = 0.01 and GQA-mean. At 3.20 seconds of decode time, RefineKV has produced 256 tokens and Full Attention 140.</p><p>This is a separate vLLM demonstration. The paper’s 1.76× result below uses its benchmark protocol and GQA-any. This demo measures speed, not answer correctness or output equivalence.</p></div></details>
-    <div class="latency-breakdown" id="figure5">
-      <h3>Latency Breakdown</h3>
-      <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/figure5-latency.svg" aria-label="Enlarge Figure 5: latency breakdown"><img src="assets/figure5-latency.svg" width="1351" height="545" loading="lazy" alt="Figure 5: Llama-3.1-8B-Instruct at 128K context. BF16 profiled GPU time falls from 24.19 to 13.99 ms per step, with 11.22 times attention acceleration. FP8 falls from 19.32 to 9.05 ms, with 11.76 times attention acceleration. Bars separate attention, selection, GEMV, and other kernels."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><strong>Figure 5.</strong> Latency breakdown for Llama-3.1-8B-Instruct with 128K input and τ = 0.01. Hatched regions indicate the ideal attention latency implied by the KV-access budget.</figcaption></figure>
-      <p class="figure-note">RefineKV reduces attention time substantially; GEMV becomes the main remaining cost. These bars show profiled GPU kernel time for one representative request, separate from the wall-clock decoding demo above.</p>
-
-    </div>
-  </section>
 
   <section id="results" class="paper-section results-section">
     <h2>Evaluation</h2>
