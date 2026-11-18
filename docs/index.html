@@ -34,7 +34,7 @@
       <a class="publication-button" href="https://github.com/Kevin-lkw/RefineKV-release" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16"/></svg><span>Code</span></a>
       <a class="publication-button" href="https://github.com/Kevin-lkw/RefineKV-vllm" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5m6-5v5M7 8h10v3a5 5 0 0 1-10 0zM12 16v5"/></svg><span>vLLM Plugin</span></a>
     </div>
-    <p class="tldr"><strong>TL;DR:</strong> RefineKV adapts KV cache access to each decoding query. An attention-error bound selects which clusters to expand, delivering up to <strong>1.76× faster decoding</strong> while retaining near-full-attention quality.</p>
+    <p class="tldr"><strong>TL;DR:</strong> RefineKV adapts KV cache access to each decoding query. An attention-error bound selects which clusters to expand, delivering up to <strong>1.56× faster decoding</strong> while retaining near-full-attention quality.</p>
     <nav class="page-nav" aria-label="Page sections"><a data-section-link href="#overview">Abstract</a><a data-section-link href="#demo">Decoding Demo</a><a data-section-link href="#quality">Quality Comparison</a><a data-section-link href="#motivation">Motivation</a><a data-section-link href="#method">Method</a><a data-section-link href="#figure2">Interactive Figure 2</a><a data-section-link href="#results">Evaluation</a><a data-section-link href="#resources">BibTeX</a></nav>
   </header>
 
@@ -42,7 +42,7 @@
     <h2>Abstract</h2>
     <div class="abstract-copy">
       <p>Repeatedly accessing the full key–value (KV) cache is a major bottleneck in long-context language model decoding. We find that small query-specific subsets can accurately approximate full attention, yet their union covers nearly the entire cache, motivating query-adaptive access for the KV cache. A natural approach is to split the KV cache into clusters, using compact representatives for clusters that incur negligible error while expanding the rest to their original KV entries.</p>
-      <p>We derive a principled selection criterion, an upper bound on attention-output error, which reveals two complementary factors governing the error: <em>importance</em> measures the impact of a cluster, while <em>distortion</em> measures how faithfully the cluster can be represented. Based on this criterion, we propose <span class="method-name">RefineKV</span>, a decoding-time query-adaptive KV compression method. Experiments on two models and three benchmarks demonstrate that <span class="method-name">RefineKV</span> retains near-full-attention quality while achieving up to <strong>11.7× speedup in the attention phase</strong> and <strong>1.76× faster decoding</strong>, establishing a new quality–latency Pareto frontier.</p>
+      <p>We derive a principled selection criterion, an upper bound on attention-output error, which reveals two complementary factors governing the error: <em>importance</em> measures the impact of a cluster, while <em>distortion</em> measures how faithfully the cluster can be represented. Based on this criterion, we propose <span class="method-name">RefineKV</span>, a decoding-time query-adaptive KV compression method. Experiments on two models and three benchmarks demonstrate that <span class="method-name">RefineKV</span> retains near-full-attention quality while achieving up to <strong>4.4× speedup in the attention phase</strong> and <strong>1.56× faster decoding</strong>, establishing a new quality–latency Pareto frontier.</p>
     </div>
   </section>
 
@@ -52,11 +52,11 @@
     <p class="section-bridge">Selective access is useful when it reduces real decoding time. This replay uses measured token-arrival times: RefineKV reaches 256 tokens first, then waits while Full Attention finishes.</p>
     <figure class="media-figure"><div class="video-frame"><video id="decode-video" class="demo-video" controls muted playsinline loop preload="none" poster="assets/decoding-poster.png" aria-label="Recorded Full Attention versus RefineKV decoding comparison"><source src="assets/decoding.mp4" type="video/mp4">Your browser does not support video playback.</video></div><figcaption>Recorded decoding with Llama-3.1-8B. RefineKV finishes first; Full Attention continues until all 256 tokens are generated.</figcaption></figure>
     <div class="demo-summary"><span><strong>1.83×</strong> faster in this example</span><span>Full Attention: <b>23.03</b> ms/token</span><span>RefineKV: <b>12.56</b> ms/token</span></div>
-    <details class="protocol"><summary>How this demo was measured <span aria-hidden="true">+</span></summary><div class="details-body"><p>This replay uses real token-arrival timestamps from a LongBench-v2 literary-QA prompt: 130,801 input tokens and 256 output tokens. Both methods run sequentially on the same NVIDIA RTX PRO 6000 Blackwell GPU, using BF16 and vLLM 0.31.0.</p><p>Each method has one warmup and three measured runs; the video shows the median-TPOT run for each, aligned at the first output token. Playback is at 0.5× speed; prefill is excluded. RefineKV uses ε = 0.01 and GQA-mean. At 3.20 seconds of decode time, RefineKV has produced 256 tokens and Full Attention 140.</p><p>This is a separate vLLM demonstration. The paper’s 1.76× result below uses its benchmark protocol and GQA-any. This demo measures speed, not answer correctness or output equivalence.</p></div></details>
+    <details class="protocol"><summary>How this demo was measured <span aria-hidden="true">+</span></summary><div class="details-body"><p>This replay uses real token-arrival timestamps from a LongBench-v2 literary-QA prompt: 130,801 input tokens and 256 output tokens. Both methods run sequentially on the same NVIDIA RTX PRO 6000 Blackwell GPU, using BF16 and vLLM 0.31.0.</p><p>Each method has one warmup and three measured runs; the video shows the median-TPOT run for each, aligned at the first output token. Playback is at 0.5× speed; prefill is excluded. RefineKV uses ε = 0.01 and GQA-mean. At 3.20 seconds of decode time, RefineKV has produced 256 tokens and Full Attention 140.</p><p>This is a separate vLLM demonstration. The 1.56× result below uses the paper’s benchmark protocol (CUDA Graph) and GQA-any. This demo measures speed, not answer correctness or output equivalence.</p></div></details>
     <div class="latency-breakdown" id="figure5">
       <h3>Latency Breakdown</h3>
-      <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/figure5-latency.svg" aria-label="Enlarge Figure 5: latency breakdown"><img src="assets/figure5-latency.svg" width="1351" height="545" loading="lazy" alt="Figure 5: Llama-3.1-8B-Instruct at 128K context. BF16 profiled GPU time falls from 24.19 to 13.99 ms per step, with 11.22 times attention acceleration. FP8 falls from 19.32 to 9.05 ms, with 11.76 times attention acceleration. Bars separate attention, selection, GEMV, and other kernels."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><strong>Figure 5.</strong> Latency breakdown for Llama-3.1-8B-Instruct with 128K input and τ = 0.01. Hatched regions indicate the ideal attention latency implied by the KV-access budget.</figcaption></figure>
-      <p class="figure-note">RefineKV reduces attention time substantially; GEMV becomes the main remaining cost. These bars show profiled GPU kernel time for one representative request, separate from the wall-clock decoding demo above.</p>
+      <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/figure5-latency.svg" aria-label="Enlarge Figure 5: latency breakdown"><img src="assets/figure5-latency.svg" width="1351" height="574" loading="lazy" alt="Figure 5: Llama-3.1-8B-Instruct at 128K context, tau 0.1. BF16 time per output token falls from 24.78 to 14.89 ms (1.66 times), with 7.61 times attention acceleration including selection. FP8 falls from 19.52 to 9.76 ms (2.00 times), with 8.14 times attention acceleration. Bars separate attention, selection, GEMV, and other time."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><strong>Figure 5.</strong> Per-step latency breakdown for Llama-3.1-8B-Instruct on LongBench with 128K input and τ = 0.1, CUDA Graph on both sides. Each bar sums to the measured time per output token; the attention speedup includes selection.</figcaption></figure>
+      <p class="figure-note">RefineKV reduces attention time substantially; GEMV becomes the main remaining cost. Attention, selection, and GEMV are profiled kernel times; Other is the remaining kernels and GPU idle time. BF16 is the mean over 16 LongBench prompts; FP8 (W8A16 decoder linears) is the mean over 2 prompts. These measurements are separate from the vLLM decoding demo above.</p>
 
     </div>
   </section>
@@ -74,63 +74,63 @@
       <div class="qg-grid">
         <article class="qg-card" data-benchmark="longbench" data-budget="15">
           <h3>LongBench</h3>
-          <p class="qg-gain"><strong>+3.86</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
-          <p class="qg-ratio">1.09× the baseline score</p>
+          <p class="qg-gain"><strong>+1.71</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
+          <p class="qg-ratio">1.04× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="24">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.87 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.2481250000%"></span></span><strong class="qg-score">49.25</strong></div>
+          <div class="qg-row qg-ours" data-point="46">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.94 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.2260458875%"></span></span><strong class="qg-score">49.23</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="26">
-            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">14.29 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:45.3887500000%"></span></span><strong class="qg-score">45.39</strong></div>
+          <div class="qg-row qg-baseline" data-point="49">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>25%</small></span><span class="qg-time">13.94 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:47.5118750000%"></span></span><strong class="qg-score">47.51</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="23">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.92 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0218750000%"></span></span><strong class="qg-score">49.02</strong></div>
+          <div class="qg-row qg-full" data-point="45">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">17.65 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.3350000000%"></span></span><strong class="qg-score">49.34</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>0.23 points above</strong> Full Attention</p><p class="qg-speed"><strong>1.27× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.11 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.18× faster</strong> decoding</p></div>
         </article>
         <article class="qg-card" data-benchmark="ruler" data-budget="15">
           <h3>RULER</h3>
-          <p class="qg-gain"><strong>+18.49</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
-          <p class="qg-ratio">1.40× the baseline score</p>
+          <p class="qg-gain"><strong>+14.22</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
+          <p class="qg-ratio">1.28× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="31">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.32 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:64.5130769231%"></span></span><strong class="qg-score">64.51</strong></div>
+          <div class="qg-row qg-ours" data-point="59">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.88 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:65.2756923077%"></span></span><strong class="qg-score">65.28</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="32">
-            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">14.29 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:46.0253846154%"></span></span><strong class="qg-score">46.03</strong></div>
+          <div class="qg-row qg-baseline" data-point="62">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>25%</small></span><span class="qg-time">13.94 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:51.0515384615%"></span></span><strong class="qg-score">51.05</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="29">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.92 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:65.0638461538%"></span></span><strong class="qg-score">65.06</strong></div>
+          <div class="qg-row qg-full" data-point="58">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">17.64 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:65.8784615385%"></span></span><strong class="qg-score">65.88</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>0.55 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.32× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.60 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.19× faster</strong> decoding</p></div>
         </article>
         <article class="qg-card" data-benchmark="helmet" data-budget="15">
           <h3>HELMET</h3>
-          <p class="qg-gain"><strong>+4.14</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
-          <p class="qg-ratio">1.08× the baseline score</p>
+          <p class="qg-gain"><strong>+0.52</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 50% within this budget</p>
+          <p class="qg-ratio">1.01× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="19">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.24 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:52.9427247294%"></span></span><strong class="qg-score">52.94</strong></div>
+          <div class="qg-row qg-ours" data-point="75">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">13.89 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:52.8325363636%"></span></span><strong class="qg-score">52.83</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="21">
-            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>25%</small></span><span class="qg-time">14.99 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.8033680871%"></span></span><strong class="qg-score">48.80</strong></div>
+          <div class="qg-row qg-baseline" data-point="83">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>50%</small></span><span class="qg-time">14.93 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:52.3122571970%"></span></span><strong class="qg-score">52.31</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="17">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">18.36 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:54.7305321970%"></span></span><strong class="qg-score">54.73</strong></div>
+          <div class="qg-row qg-full" data-point="73">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">17.07 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:54.5685811553%"></span></span><strong class="qg-score">54.57</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>1.79 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.29× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>1.74 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.23× faster</strong> decoding</p></div>
         </article>
       </div>
     </div>
@@ -139,69 +139,69 @@
       <div class="qg-grid">
         <article class="qg-card" data-benchmark="longbench" data-budget="17">
           <h3>LongBench</h3>
-          <p class="qg-gain"><strong>+2.78</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. PyramidKV 10% within this budget</p>
-          <p class="qg-ratio">1.06× the baseline score</p>
+          <p class="qg-gain"><strong>+1.16</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
+          <p class="qg-ratio">1.02× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="0">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">14.75 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0093750000%"></span></span><strong class="qg-score">49.01</strong></div>
+          <div class="qg-row qg-ours" data-point="2">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.62 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.9509997076%"></span></span><strong class="qg-score">48.95</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="78">
-            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>10%</small></span><span class="qg-time">15.52 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:46.2325000000%"></span></span><strong class="qg-score">46.23</strong></div>
+          <div class="qg-row qg-baseline" data-point="8">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.08 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:47.7956250000%"></span></span><strong class="qg-score">47.80</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="2">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">25.90 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:49.0612500000%"></span></span><strong class="qg-score">49.06</strong></div>
+          <div class="qg-row qg-full" data-point="0">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">24.44 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.8562500000%"></span></span><strong class="qg-score">48.86</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>0.05 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.76× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.09 points above</strong> Full Attention</p><p class="qg-speed"><strong>1.67× faster</strong> decoding</p></div>
         </article>
         <article class="qg-card" data-benchmark="ruler" data-budget="17">
           <h3>RULER</h3>
-          <p class="qg-gain"><strong>+4.42</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 10% within this budget</p>
-          <p class="qg-ratio">1.07× the baseline score</p>
+          <p class="qg-gain"><strong>−0.12</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
+          <p class="qg-ratio">1.00× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="10">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">16.41 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:71.2246153846%"></span></span><strong class="qg-score">71.22</strong></div>
+          <div class="qg-row qg-ours" data-point="16">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">15.68 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:70.1923846154%"></span></span><strong class="qg-score">70.19</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="7">
-            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">15.45 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:66.8015384615%"></span></span><strong class="qg-score">66.80</strong></div>
+          <div class="qg-row qg-baseline" data-point="23">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.12 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:70.3138461538%"></span></span><strong class="qg-score">70.31</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="6">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">25.90 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:73.3461538462%"></span></span><strong class="qg-score">73.35</strong></div>
+          <div class="qg-row qg-full" data-point="15">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">24.43 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:73.3653846154%"></span></span><strong class="qg-score">73.37</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>2.12 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.58× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>3.17 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.56× faster</strong> decoding</p></div>
         </article>
         <article class="qg-card" data-benchmark="helmet" data-budget="17">
           <h3>HELMET</h3>
-          <p class="qg-gain"><strong>+0.51</strong><span>score points</span></p>
+          <p class="qg-gain"><strong>+0.13</strong><span>score points</span></p>
           <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
-          <p class="qg-ratio">1.01× the baseline score</p>
+          <p class="qg-ratio">1.00× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="15">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">16.61 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:68.8065888393%"></span></span><strong class="qg-score">68.81</strong></div>
+          <div class="qg-row qg-ours" data-point="31">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">15.81 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:68.4304857143%"></span></span><strong class="qg-score">68.43</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="85">
-            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.72 ms/token</span></div>
+          <div class="qg-row qg-baseline" data-point="38">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">15.52 ms/token</span></div>
             <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:68.2957831998%"></span></span><strong class="qg-score">68.30</strong></div>
           </div>
-          <div class="qg-row qg-full" data-point="11">
-            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">23.91 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:69.1897746795%"></span></span><strong class="qg-score">69.19</strong></div>
+          <div class="qg-row qg-full" data-point="30">
+            <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">22.54 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:69.0968111378%"></span></span><strong class="qg-score">69.10</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>0.38 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.44× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.67 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.43× faster</strong> decoding</p></div>
         </article>
       </div>
     </div>
     <!-- quality-cards:end -->
     <p class="qg-note">RefineKV and the best efficient-attention baseline fit within the shown time budget. Full Attention is the quality reference and takes longer. Higher task scores are better.</p>
-    <details class="protocol"><summary>Comparison details <span aria-hidden="true">+</span></summary><div class="details-body"><p>These examples use a fixed budget of 15 ms per output token for Qwen and 17 ms for Llama. Each card shows the highest-scoring measured RefineKV configuration (τ = 0.01 or 0.1) and the highest-scoring complete baseline configuration within that budget. Baselines include SnapKV, StreamingLLM, PyramidKV, Quest, and Double-P. Actual times are shown beside each method.</p><p>Scores are task averages on a shared 0–100 scale. Differences and ratios use unrounded scores. Incomplete evaluations and preliminary single-input timing results are excluded. Timings follow the paper’s 128-output-token decode protocol, excluding prefill; they are separate from the vLLM video. Figure 4 and Table 1 below show the wider quality–latency trade-offs.</p></div></details>
+    <details class="protocol"><summary>Comparison details <span aria-hidden="true">+</span></summary><div class="details-body"><p>These examples use a fixed budget of 15 ms per output token for Qwen and 17 ms for Llama. Each card shows the highest-scoring measured RefineKV configuration (τ = 0.01 or 0.1) and the highest-scoring complete baseline configuration within that budget. Baselines include SnapKV, StreamingLLM, PyramidKV, Quest, and Double-P. Actual times are shown beside each method.</p><p>Scores are task averages on a shared 0–100 scale. Differences and ratios use unrounded scores. Incomplete evaluations and preliminary single-input timing results are excluded. Timings follow the paper’s 128-output-token decode protocol with CUDA Graph, excluding prefill; Quest is timed in eager mode. They are separate from the vLLM video. Figure 4 and Table 1 below show the wider quality–latency trade-offs.</p></div></details>
     <p id="quality-status" class="sr-only" aria-live="polite"></p>
     <noscript><p class="qg-note">Showing Qwen results. Enable JavaScript to switch models.</p></noscript>
   </section>
@@ -288,13 +288,13 @@
     <h2>Evaluation</h2>
     <p class="section-intro">Quality–latency trade-offs on LongBench, RULER, and HELMET, using Llama-3.1-8B-Instruct and Qwen2.5-7B-Instruct.</p>
     <p class="section-bridge">Read Figure 4 toward the upper left: higher task score with less time per output token is better. Varying τ traces RefineKV’s quality–latency trade-off; Table 1 breaks down representative operating points by task group.</p>
-    <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/results.webp" aria-label="Enlarge Figure 4: quality versus latency"><img src="assets/results.webp" width="1600" height="780" loading="lazy" alt="Figure 4 from the paper: six plots comparing benchmark score against time per output token for Llama and Qwen across LongBench, RULER, and HELMET. RefineKV at tau 0.01 lies near full-attention quality at lower latency."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><span>FIGURE 4</span> Quality versus measured decoding latency. Lower latency is better; higher benchmark score is better. Original figure from the paper.</figcaption></figure>
-    <div class="results-copy"><p>At <strong>τ = 0.01</strong>, RefineKV retains near-full-attention quality while achieving up to <strong>11.7× attention-phase acceleration</strong> and <strong>1.76× faster decoding</strong>. The access pattern adapts to each query instead of following a fixed KV budget.</p><p>A more aggressive threshold, <strong>τ = 0.1</strong>, reaches up to 1.82× decode speedup in the paper, with quality effects that vary by task.</p></div>
+    <figure class="results-figure"><button class="figure-zoom" type="button" data-zoom="assets/results.webp" aria-label="Enlarge Figure 4: quality versus latency"><img src="assets/results.webp" width="2400" height="1155" loading="lazy" alt="Figure 4 from the paper: six plots comparing benchmark score against time per output token for Llama and Qwen across LongBench, RULER, and HELMET. RefineKV at tau 0.01 lies near full-attention quality at lower latency."><span class="zoom-label">Enlarge figure ↗</span></button><figcaption><span>FIGURE 4</span> Quality versus measured decoding latency. Lower latency is better; higher benchmark score is better. All methods use CUDA Graph timing except Quest (hollow markers, eager).</figcaption></figure>
+    <div class="results-copy"><p>At <strong>τ = 0.01</strong>, RefineKV retains near-full-attention quality while achieving up to <strong>4.4× attention-phase acceleration</strong> (including selection) and <strong>1.56× faster decoding</strong>. The access pattern adapts to each query instead of following a fixed KV budget.</p><p>A more aggressive threshold, <strong>τ = 0.1</strong>, reaches up to 7.6× attention-phase and 1.67× decode speedup, with quality effects that vary by task.</p></div>
     <!-- table-1:start -->
     <div class="table-results" id="table1">
       <h3>Task-group Quality and Speed</h3>
       <p class="table-caption" id="table1-caption"><strong>Table 1.</strong> Each cell reports <strong>accuracy / acceleration</strong>. Acceleration is relative to Full Attention; higher is better for both. Results from the paper, grouped by benchmark and task.</p>
-      <div class="table-key" id="table1-key"><span><i class="pareto-swatch" aria-hidden="true"></i>Shaded: Pareto-optimal</span><span><u>Underlined</u>: accuracy drop &lt; 0.5 point</span></div>
+      <div class="table-key" id="table1-key"><span><i class="pareto-swatch" aria-hidden="true"></i>Shaded: Pareto-optimal among methods within 3 points of Full Attention</span><span><u>Underlined</u>: accuracy drop &lt; 0.5 point</span></div>
       <p class="table-scroll-hint">Scroll horizontally to see all task groups →</p>
       <h4 id="table1-llama-title">Llama-3.1-8B-Instruct</h4>
       <div class="benchmark-table-scroll" tabindex="0" role="region" aria-labelledby="table1-llama-title"><table class="benchmark-table" data-model="llama" aria-describedby="table1-caption table1-key"><caption class="sr-only">Table 1 — Llama-3.1-8B-Instruct: accuracy and latency acceleration</caption>
@@ -313,45 +313,45 @@
           <th scope="col"><abbr title="Recall/Reranking">Rec./Rank.</abbr></th>
         </tr></thead><tbody>
         <tr data-method="full"><th scope="row" class="method-column">Full Attention</th>
-          <td class="group-start pareto-cell">43.8<span class="acceleration"> / 1.0</span></td>
-          <td class="">29.1<span class="acceleration"> / 1.0</span></td>
+          <td class="group-start">43.6<span class="acceleration"> / 1.0</span></td>
+          <td class="">29.2<span class="acceleration"> / 1.0</span></td>
           <td class="">69.2<span class="acceleration"> / 1.0</span></td>
-          <td class="pareto-cell">53.7<span class="acceleration"> / 1.0</span></td>
-          <td class="">59.8<span class="acceleration"> / 1.0</span></td>
-          <td class="group-start pareto-cell">88.4<span class="acceleration"> / 1.0</span></td>
-          <td class="">45.3<span class="acceleration"> / 1.0</span></td>
+          <td class="">53.0<span class="acceleration"> / 1.0</span></td>
+          <td class="">59.6<span class="acceleration"> / 1.0</span></td>
+          <td class="group-start">88.6<span class="acceleration"> / 1.0</span></td>
+          <td class="">45.0<span class="acceleration"> / 1.0</span></td>
           <td class="">55.0<span class="acceleration"> / 1.0</span></td>
           <td class="group-start">60.4<span class="acceleration"> / 1.0</span></td>
           <td class="">48.6<span class="acceleration"> / 1.0</span></td>
           <td class="">77.0<span class="acceleration"> / 1.0</span></td>
-          <td class="pareto-cell">76.6<span class="acceleration"> / 1.0</span></td>
+          <td class="">76.4<span class="acceleration"> / 1.0</span></td>
         </tr>
         <tr data-method="snapkv10"><th scope="row" class="method-column">SnapKV 10%</th>
           <td class="group-start">41.2<span class="acceleration"> / 1.7</span></td>
           <td class="">23.4<span class="acceleration"> / 1.7</span></td>
           <td class="">65.9<span class="acceleration"> / 1.7</span></td>
-          <td class=""><u>53.4<span class="acceleration"> / 1.7</span></u></td>
-          <td class="">58.5<span class="acceleration"> / 1.7</span></td>
-          <td class="group-start">79.5<span class="acceleration"> / 1.7</span></td>
-          <td class="pareto-cell">40.7<span class="acceleration"> / 1.7</span></td>
+          <td class="pareto-cell"><u>53.4<span class="acceleration"> / 1.7</span></u></td>
+          <td class="pareto-cell">58.5<span class="acceleration"> / 1.7</span></td>
+          <td class="group-start pareto-cell">79.5<span class="acceleration"> / 1.7</span></td>
+          <td class="">40.7<span class="acceleration"> / 1.7</span></td>
           <td class=""><u>55.0<span class="acceleration"> / 1.7</span></u></td>
-          <td class="group-start pareto-cell"><u>61.0<span class="acceleration"> / 1.6</span></u></td>
+          <td class="group-start pareto-cell"><u>61.0<span class="acceleration"> / 1.7</span></u></td>
           <td class="pareto-cell"><u>48.4<span class="acceleration"> / 1.6</span></u></td>
-          <td class=""><u>77.0<span class="acceleration"> / 1.6</span></u></td>
+          <td class="pareto-cell"><u>77.0<span class="acceleration"> / 1.6</span></u></td>
           <td class="">60.7<span class="acceleration"> / 1.5</span></td>
         </tr>
         <tr data-method="snapkv25"><th scope="row" class="method-column">SnapKV 25%</th>
           <td class="group-start">42.8<span class="acceleration"> / 1.5</span></td>
           <td class="">26.3<span class="acceleration"> / 1.5</span></td>
           <td class="">67.5<span class="acceleration"> / 1.5</span></td>
-          <td class="">53.2<span class="acceleration"> / 1.5</span></td>
+          <td class=""><u>53.2<span class="acceleration"> / 1.5</span></u></td>
           <td class=""><u>59.8<span class="acceleration"> / 1.5</span></u></td>
-          <td class="group-start">84.2<span class="acceleration"> / 1.5</span></td>
+          <td class="group-start pareto-cell">84.2<span class="acceleration"> / 1.5</span></td>
           <td class="">41.3<span class="acceleration"> / 1.5</span></td>
           <td class=""><u>55.0<span class="acceleration"> / 1.5</span></u></td>
           <td class="group-start"><u>60.6<span class="acceleration"> / 1.5</span></u></td>
           <td class="pareto-cell"><u>49.4<span class="acceleration"> / 1.5</span></u></td>
-          <td class=""><u>78.0<span class="acceleration"> / 1.4</span></u></td>
+          <td class="pareto-cell"><u>78.0<span class="acceleration"> / 1.5</span></u></td>
           <td class="">71.8<span class="acceleration"> / 1.4</span></td>
         </tr>
         <tr data-method="streamllm10"><th scope="row" class="method-column">StreamingLLM 10%</th>
@@ -379,19 +379,19 @@
           <td class="">50.0<span class="acceleration"> / 1.5</span></td>
           <td class="group-start">57.9<span class="acceleration"> / 1.5</span></td>
           <td class="">41.5<span class="acceleration"> / 1.5</span></td>
-          <td class="">73.0<span class="acceleration"> / 1.4</span></td>
+          <td class="">73.0<span class="acceleration"> / 1.5</span></td>
           <td class="">17.3<span class="acceleration"> / 1.4</span></td>
         </tr>
         <tr data-method="pyramidkv10"><th scope="row" class="method-column">PyramidKV 10%</th>
-          <td class="group-start">41.3<span class="acceleration"> / 1.7</span></td>
+          <td class="group-start pareto-cell">41.3<span class="acceleration"> / 1.7</span></td>
           <td class="">23.6<span class="acceleration"> / 1.7</span></td>
           <td class="">66.0<span class="acceleration"> / 1.7</span></td>
-          <td class=""><u>53.3<span class="acceleration"> / 1.7</span></u></td>
-          <td class="">58.4<span class="acceleration"> / 1.7</span></td>
-          <td class="group-start">79.7<span class="acceleration"> / 1.7</span></td>
+          <td class="pareto-cell"><u>53.3<span class="acceleration"> / 1.7</span></u></td>
+          <td class="pareto-cell">58.4<span class="acceleration"> / 1.7</span></td>
+          <td class="group-start pareto-cell">79.7<span class="acceleration"> / 1.7</span></td>
           <td class="">39.2<span class="acceleration"> / 1.7</span></td>
-          <td class=""><u>55.0<span class="acceleration"> / 1.7</span></u></td>
-          <td class="group-start"><u>61.0<span class="acceleration"> / 1.6</span></u></td>
+          <td class="pareto-cell"><u>55.0<span class="acceleration"> / 1.7</span></u></td>
+          <td class="group-start"><u>61.0<span class="acceleration"> / 1.7</span></u></td>
           <td class="pareto-cell"><u>49.0<span class="acceleration"> / 1.6</span></u></td>
           <td class="">75.0<span class="acceleration"> / 1.6</span></td>
           <td class="">63.9<span class="acceleration"> / 1.5</span></td>
@@ -400,43 +400,43 @@
           <td class="group-start">43.0<span class="acceleration"> / 1.5</span></td>
           <td class="">26.2<span class="acceleration"> / 1.5</span></td>
           <td class="">67.5<span class="acceleration"> / 1.5</span></td>
-          <td class="">53.0<span class="acceleration"> / 1.5</span></td>
-          <td class=""><u>59.8<span class="acceleration"> / 1.5</span></u></td>
+          <td class=""><u>53.0<span class="acceleration"> / 1.5</span></u></td>
+          <td class="pareto-cell"><u>59.8<span class="acceleration"> / 1.5</span></u></td>
           <td class="group-start pareto-cell">84.8<span class="acceleration"> / 1.5</span></td>
           <td class="">41.8<span class="acceleration"> / 1.5</span></td>
           <td class=""><u>55.0<span class="acceleration"> / 1.5</span></u></td>
           <td class="group-start"><u>60.4<span class="acceleration"> / 1.5</span></u></td>
           <td class=""><u>49.4<span class="acceleration"> / 1.5</span></u></td>
-          <td class="">76.0<span class="acceleration"> / 1.4</span></td>
-          <td class="">74.4<span class="acceleration"> / 1.4</span></td>
+          <td class="">76.0<span class="acceleration"> / 1.5</span></td>
+          <td class="pareto-cell">74.4<span class="acceleration"> / 1.4</span></td>
         </tr>
         <tr data-method="ours001" class="refinekv-row"><th scope="row" class="method-column">RefineKV τ = 0.01</th>
-          <td class="group-start pareto-cell"><u>43.6<span class="acceleration"> / 1.8</span></u></td>
-          <td class="pareto-cell"><u>29.2<span class="acceleration"> / 1.8</span></u></td>
-          <td class="pareto-cell"><u>69.5<span class="acceleration"> / 1.7</span></u></td>
-          <td class="pareto-cell"><u>53.4<span class="acceleration"> / 1.8</span></u></td>
-          <td class="pareto-cell"><u>59.9<span class="acceleration"> / 1.8</span></u></td>
-          <td class="group-start pareto-cell">84.5<span class="acceleration"> / 1.6</span></td>
-          <td class="pareto-cell"><u>46.6<span class="acceleration"> / 1.6</span></u></td>
+          <td class="group-start"><u>43.3<span class="acceleration"> / 1.6</span></u></td>
+          <td class="pareto-cell"><u>29.3<span class="acceleration"> / 1.5</span></u></td>
+          <td class="pareto-cell"><u>69.4<span class="acceleration"> / 1.5</span></u></td>
+          <td class=""><u>53.3<span class="acceleration"> / 1.6</span></u></td>
+          <td class=""><u>59.7<span class="acceleration"> / 1.6</span></u></td>
+          <td class="group-start pareto-cell">82.8<span class="acceleration"> / 1.6</span></td>
+          <td class="pareto-cell"><u>46.7<span class="acceleration"> / 1.6</span></u></td>
           <td class=""><u>55.0<span class="acceleration"> / 1.5</span></u></td>
-          <td class="group-start"><u>60.4<span class="acceleration"> / 1.5</span></u></td>
+          <td class="group-start pareto-cell"><u>61.7<span class="acceleration"> / 1.5</span></u></td>
           <td class=""><u>48.9<span class="acceleration"> / 1.5</span></u></td>
-          <td class="">76.0<span class="acceleration"> / 1.4</span></td>
-          <td class="pareto-cell"><u>76.3<span class="acceleration"> / 1.4</span></u></td>
+          <td class="">75.0<span class="acceleration"> / 1.4</span></td>
+          <td class="pareto-cell">75.1<span class="acceleration"> / 1.4</span></td>
         </tr>
         <tr data-method="ours01" class="refinekv-row"><th scope="row" class="method-column">RefineKV τ = 0.1</th>
-          <td class="group-start pareto-cell"><u>43.3<span class="acceleration"> / 1.8</span></u></td>
-          <td class="pareto-cell">28.4<span class="acceleration"> / 1.8</span></td>
-          <td class="pareto-cell">67.6<span class="acceleration"> / 1.8</span></td>
-          <td class="pareto-cell">52.4<span class="acceleration"> / 1.8</span></td>
-          <td class="pareto-cell"><u>59.4<span class="acceleration"> / 1.8</span></u></td>
-          <td class="group-start">70.5<span class="acceleration"> / 1.8</span></td>
-          <td class="">40.0<span class="acceleration"> / 1.8</span></td>
-          <td class="pareto-cell"><u>55.0<span class="acceleration"> / 1.8</span></u></td>
-          <td class="group-start pareto-cell">58.5<span class="acceleration"> / 1.7</span></td>
-          <td class="pareto-cell">47.9<span class="acceleration"> / 1.7</span></td>
-          <td class="pareto-cell"><u>79.0<span class="acceleration"> / 1.6</span></u></td>
-          <td class="">54.2<span class="acceleration"> / 1.6</span></td>
+          <td class="group-start pareto-cell"><u>43.8<span class="acceleration"> / 1.7</span></u></td>
+          <td class="pareto-cell"><u>28.9<span class="acceleration"> / 1.7</span></u></td>
+          <td class="pareto-cell"><u>69.2<span class="acceleration"> / 1.7</span></u></td>
+          <td class=""><u>53.2<span class="acceleration"> / 1.7</span></u></td>
+          <td class="pareto-cell"><u>59.7<span class="acceleration"> / 1.7</span></u></td>
+          <td class="group-start">72.2<span class="acceleration"> / 1.7</span></td>
+          <td class="">40.3<span class="acceleration"> / 1.7</span></td>
+          <td class="pareto-cell"><u>57.5<span class="acceleration"> / 1.7</span></u></td>
+          <td class="group-start">57.7<span class="acceleration"> / 1.6</span></td>
+          <td class="">47.0<span class="acceleration"> / 1.6</span></td>
+          <td class="">76.0<span class="acceleration"> / 1.6</span></td>
+          <td class="">40.8<span class="acceleration"> / 1.5</span></td>
         </tr>
         </tbody></table></div>
       <h4 id="table1-qwen-title">Qwen2.5-7B-Instruct</h4>
@@ -456,45 +456,45 @@
           <th scope="col"><abbr title="Recall/Reranking">Rec./Rank.</abbr></th>
         </tr></thead><tbody>
         <tr data-method="full"><th scope="row" class="method-column">Full Attention</th>
-          <td class="group-start pareto-cell">43.5<span class="acceleration"> / 1.0</span></td>
-          <td class="">26.4<span class="acceleration"> / 1.0</span></td>
-          <td class="">69.2<span class="acceleration"> / 1.0</span></td>
+          <td class="group-start">43.2<span class="acceleration"> / 1.0</span></td>
+          <td class="">27.8<span class="acceleration"> / 1.0</span></td>
+          <td class="">69.9<span class="acceleration"> / 1.0</span></td>
           <td class="">54.5<span class="acceleration"> / 1.0</span></td>
-          <td class="">63.6<span class="acceleration"> / 1.0</span></td>
-          <td class="group-start">73.8<span class="acceleration"> / 1.0</span></td>
-          <td class="">56.9<span class="acceleration"> / 1.0</span></td>
+          <td class="">64.1<span class="acceleration"> / 1.0</span></td>
+          <td class="group-start">74.8<span class="acceleration"> / 1.0</span></td>
+          <td class="">57.6<span class="acceleration"> / 1.0</span></td>
           <td class="">42.5<span class="acceleration"> / 1.0</span></td>
-          <td class="group-start">49.0<span class="acceleration"> / 1.0</span></td>
-          <td class="pareto-cell">51.7<span class="acceleration"> / 1.0</span></td>
+          <td class="group-start">48.5<span class="acceleration"> / 1.0</span></td>
+          <td class="">50.8<span class="acceleration"> / 1.0</span></td>
           <td class="">76.0<span class="acceleration"> / 1.0</span></td>
-          <td class="">39.3<span class="acceleration"> / 1.0</span></td>
+          <td class="">39.5<span class="acceleration"> / 1.0</span></td>
         </tr>
         <tr data-method="snapkv10"><th scope="row" class="method-column">SnapKV 10%</th>
-          <td class="group-start">41.3<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start pareto-cell">41.3<span class="acceleration"> / 1.3</span></td>
           <td class="">21.3<span class="acceleration"> / 1.3</span></td>
           <td class="">62.2<span class="acceleration"> / 1.3</span></td>
           <td class=""><u>54.5<span class="acceleration"> / 1.3</span></u></td>
           <td class="">59.5<span class="acceleration"> / 1.3</span></td>
           <td class="group-start">45.3<span class="acceleration"> / 1.3</span></td>
           <td class="">53.6<span class="acceleration"> / 1.3</span></td>
-          <td class="pareto-cell">37.5<span class="acceleration"> / 1.3</span></td>
+          <td class="">37.5<span class="acceleration"> / 1.3</span></td>
           <td class="group-start">46.7<span class="acceleration"> / 1.3</span></td>
-          <td class="">49.9<span class="acceleration"> / 1.3</span></td>
+          <td class="pareto-cell">49.9<span class="acceleration"> / 1.3</span></td>
           <td class="pareto-cell">74.0<span class="acceleration"> / 1.3</span></td>
           <td class="">12.7<span class="acceleration"> / 1.3</span></td>
         </tr>
         <tr data-method="snapkv25"><th scope="row" class="method-column">SnapKV 25%</th>
-          <td class="group-start">42.8<span class="acceleration"> / 1.2</span></td>
-          <td class="">23.9<span class="acceleration"> / 1.2</span></td>
-          <td class="">66.2<span class="acceleration"> / 1.2</span></td>
-          <td class=""><u>54.5<span class="acceleration"> / 1.2</span></u></td>
+          <td class="group-start"><u>42.8<span class="acceleration"> / 1.3</span></u></td>
+          <td class="">23.9<span class="acceleration"> / 1.3</span></td>
+          <td class="">66.2<span class="acceleration"> / 1.3</span></td>
+          <td class=""><u>54.5<span class="acceleration"> / 1.3</span></u></td>
           <td class="">62.0<span class="acceleration"> / 1.3</span></td>
-          <td class="group-start">51.2<span class="acceleration"> / 1.2</span></td>
-          <td class="pareto-cell"><u>57.9<span class="acceleration"> / 1.2</span></u></td>
-          <td class="">40.0<span class="acceleration"> / 1.2</span></td>
-          <td class="group-start pareto-cell"><u>49.2<span class="acceleration"> / 1.2</span></u></td>
+          <td class="group-start">51.2<span class="acceleration"> / 1.3</span></td>
+          <td class="pareto-cell"><u>57.9<span class="acceleration"> / 1.3</span></u></td>
+          <td class="pareto-cell">40.0<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start pareto-cell"><u>49.2<span class="acceleration"> / 1.3</span></u></td>
           <td class="">49.1<span class="acceleration"> / 1.2</span></td>
-          <td class="">75.0<span class="acceleration"> / 1.2</span></td>
+          <td class="pareto-cell">75.0<span class="acceleration"> / 1.2</span></td>
           <td class="">22.2<span class="acceleration"> / 1.2</span></td>
         </tr>
         <tr data-method="streamllm10"><th scope="row" class="method-column">StreamingLLM 10%</th>
@@ -512,21 +512,21 @@
           <td class="">6.3<span class="acceleration"> / 1.3</span></td>
         </tr>
         <tr data-method="streamllm25"><th scope="row" class="method-column">StreamingLLM 25%</th>
-          <td class="group-start">33.0<span class="acceleration"> / 1.2</span></td>
-          <td class="">22.5<span class="acceleration"> / 1.2</span></td>
-          <td class="">65.9<span class="acceleration"> / 1.2</span></td>
-          <td class="">33.1<span class="acceleration"> / 1.2</span></td>
-          <td class="">57.8<span class="acceleration"> / 1.2</span></td>
-          <td class="group-start">22.0<span class="acceleration"> / 1.2</span></td>
-          <td class="">30.3<span class="acceleration"> / 1.2</span></td>
-          <td class="">40.0<span class="acceleration"> / 1.2</span></td>
-          <td class="group-start">39.8<span class="acceleration"> / 1.2</span></td>
+          <td class="group-start">33.0<span class="acceleration"> / 1.3</span></td>
+          <td class="">22.5<span class="acceleration"> / 1.3</span></td>
+          <td class="">65.9<span class="acceleration"> / 1.3</span></td>
+          <td class="">33.1<span class="acceleration"> / 1.3</span></td>
+          <td class="">57.8<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start">22.0<span class="acceleration"> / 1.3</span></td>
+          <td class="">30.3<span class="acceleration"> / 1.3</span></td>
+          <td class="">40.0<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start">39.8<span class="acceleration"> / 1.3</span></td>
           <td class="">47.3<span class="acceleration"> / 1.2</span></td>
           <td class="">75.0<span class="acceleration"> / 1.2</span></td>
           <td class="">10.2<span class="acceleration"> / 1.2</span></td>
         </tr>
         <tr data-method="pyramidkv10"><th scope="row" class="method-column">PyramidKV 10%</th>
-          <td class="group-start">40.5<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start pareto-cell">40.5<span class="acceleration"> / 1.3</span></td>
           <td class="">22.2<span class="acceleration"> / 1.3</span></td>
           <td class="">61.9<span class="acceleration"> / 1.3</span></td>
           <td class="pareto-cell"><u>54.5<span class="acceleration"> / 1.3</span></u></td>
@@ -536,7 +536,7 @@
           <td class="">35.0<span class="acceleration"> / 1.3</span></td>
           <td class="group-start pareto-cell">47.3<span class="acceleration"> / 1.3</span></td>
           <td class="">49.0<span class="acceleration"> / 1.3</span></td>
-          <td class="pareto-cell">71.0<span class="acceleration"> / 1.3</span></td>
+          <td class="">71.0<span class="acceleration"> / 1.3</span></td>
           <td class="">10.2<span class="acceleration"> / 1.3</span></td>
         </tr>
         <tr data-method="pyramidkv25"><th scope="row" class="method-column">PyramidKV 25%</th>
@@ -554,32 +554,32 @@
           <td class="">13.5<span class="acceleration"> / 1.2</span></td>
         </tr>
         <tr data-method="ours001" class="refinekv-row"><th scope="row" class="method-column">RefineKV τ = 0.01</th>
-          <td class="group-start">43.0<span class="acceleration"> / 1.3</span></td>
-          <td class=""><u>27.7<span class="acceleration"> / 1.3</span></u></td>
-          <td class=""><u>69.8<span class="acceleration"> / 1.2</span></u></td>
-          <td class=""><u>54.5<span class="acceleration"> / 1.3</span></u></td>
-          <td class="pareto-cell"><u>64.2<span class="acceleration"> / 1.3</span></u></td>
-          <td class="group-start pareto-cell"><u>74.4<span class="acceleration"> / 1.2</span></u></td>
-          <td class=""><u>56.7<span class="acceleration"> / 1.2</span></u></td>
-          <td class=""><u>42.5<span class="acceleration"> / 1.1</span></u></td>
-          <td class="group-start"><u>48.5<span class="acceleration"> / 1.1</span></u></td>
-          <td class="">50.8<span class="acceleration"> / 1.1</span></td>
+          <td class="group-start pareto-cell"><u>43.0<span class="acceleration"> / 1.2</span></u></td>
+          <td class=""><u>27.8<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell"><u>69.8<span class="acceleration"> / 1.2</span></u></td>
+          <td class=""><u>54.5<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell"><u>64.0<span class="acceleration"> / 1.2</span></u></td>
+          <td class="group-start pareto-cell">73.3<span class="acceleration"> / 1.2</span></td>
+          <td class="pareto-cell"><u>59.1<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell"><u>42.5<span class="acceleration"> / 1.2</span></u></td>
+          <td class="group-start"><u>49.2<span class="acceleration"> / 1.1</span></u></td>
+          <td class="pareto-cell"><u>50.8<span class="acceleration"> / 1.2</span></u></td>
           <td class=""><u>76.0<span class="acceleration"> / 1.1</span></u></td>
-          <td class="pareto-cell"><u>40.5<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell">38.7<span class="acceleration"> / 1.1</span></td>
         </tr>
         <tr data-method="ours01" class="refinekv-row"><th scope="row" class="method-column">RefineKV τ = 0.1</th>
-          <td class="group-start pareto-cell"><u>43.0<span class="acceleration"> / 1.4</span></u></td>
-          <td class="pareto-cell"><u>28.0<span class="acceleration"> / 1.4</span></u></td>
-          <td class="pareto-cell"><u>69.9<span class="acceleration"> / 1.4</span></u></td>
-          <td class="pareto-cell">54.0<span class="acceleration"> / 1.4</span></td>
-          <td class="pareto-cell"><u>63.6<span class="acceleration"> / 1.4</span></u></td>
-          <td class="group-start pareto-cell">72.2<span class="acceleration"> / 1.3</span></td>
-          <td class="pareto-cell"><u>57.1<span class="acceleration"> / 1.3</span></u></td>
-          <td class="pareto-cell"><u>45.0<span class="acceleration"> / 1.3</span></u></td>
-          <td class="group-start pareto-cell"><u>48.5<span class="acceleration"> / 1.3</span></u></td>
-          <td class="pareto-cell">51.0<span class="acceleration"> / 1.3</span></td>
-          <td class="pareto-cell"><u>76.0<span class="acceleration"> / 1.3</span></u></td>
-          <td class="">34.2<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start pareto-cell"><u>43.0<span class="acceleration"> / 1.3</span></u></td>
+          <td class="pareto-cell"><u>27.9<span class="acceleration"> / 1.3</span></u></td>
+          <td class="pareto-cell"><u>69.7<span class="acceleration"> / 1.3</span></u></td>
+          <td class=""><u>54.2<span class="acceleration"> / 1.3</span></u></td>
+          <td class="pareto-cell">63.5<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start">67.2<span class="acceleration"> / 1.3</span></td>
+          <td class="pareto-cell"><u>57.3<span class="acceleration"> / 1.3</span></u></td>
+          <td class="">37.5<span class="acceleration"> / 1.3</span></td>
+          <td class="group-start pareto-cell"><u>49.4<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell"><u>50.7<span class="acceleration"> / 1.2</span></u></td>
+          <td class="pareto-cell"><u>76.0<span class="acceleration"> / 1.2</span></u></td>
+          <td class="">33.3<span class="acceleration"> / 1.2</span></td>
         </tr>
         </tbody></table></div>
       <p class="figure-note">Accuracy is the task-macro benchmark score; acceleration is Full Attention’s task-macro time per output token divided by the method’s. Baseline percentages are KV budgets. Shading and underlines reproduce the paper’s table.</p>

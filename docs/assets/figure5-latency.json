@@ -1,0 +1,71 @@
+{
+ "eps": 0.1,
+ "ms": {
+  "BF16": {
+   "full_graph": {
+    "attn": 11.719758866935448,
+    "sel": 0.0,
+    "gemv": 10.760157318044412,
+    "tpot": 24.776429768603062,
+    "other": 2.2965135836232022
+   },
+   "box_q0_eps0.1_graph": {
+    "attn": 0.466246596270138,
+    "sel": 1.074425944556454,
+    "gemv": 11.036147651713721,
+    "tpot": 14.894611558663813,
+    "other": 2.317791366123501
+   },
+   "prompts": [
+    "lat_q0_llama_longbench_2wikimqa",
+    "lat_q0_llama_longbench_gov_report",
+    "lat_q0_llama_longbench_hotpotqa",
+    "lat_q0_llama_longbench_lcc",
+    "lat_q0_llama_longbench_multi_news",
+    "lat_q0_llama_longbench_multifieldqa_en",
+    "lat_q0_llama_longbench_musique",
+    "lat_q0_llama_longbench_narrativeqa",
+    "lat_q0_llama_longbench_passage_count",
+    "lat_q0_llama_longbench_passage_retrieval_en",
+    "lat_q0_llama_longbench_qasper",
+    "lat_q0_llama_longbench_qmsum",
+    "lat_q0_llama_longbench_repobench-p",
+    "lat_q0_llama_longbench_samsum",
+    "lat_q0_llama_longbench_trec",
+    "lat_q0_llama_longbench_triviaqa"
+   ]
+  },
+  "FP8": {
+   "full_graph": {
+    "attn": 11.457337665322562,
+    "sel": 0.0,
+    "gemv": 5.767115923387156,
+    "tpot": 19.517567110982124,
+    "other": 2.2931135222724066
+   },
+   "box_q0_eps0.1_graph": {
+    "attn": 0.4184359999999723,
+    "sel": 0.9888713145161175,
+    "gemv": 5.817860399193462,
+    "tpot": 9.764505107394328,
+    "other": 2.539337393684777
+   },
+   "prompts": [
+    "lat_q0_llama_longbench_2wikimqa",
+    "lat_q0_llama_longbench_gov_report"
+   ]
+  }
+ },
+ "speedup": {
+  "BF16": {
+   "attn_incl_sel": 7.606910979699578,
+   "attn_excl_sel": 25.136395548387345,
+   "tpot": 1.6634492058432533
+  },
+  "FP8": {
+   "attn_incl_sel": 8.141318919572466,
+   "attn_excl_sel": 27.38133828189573,
+   "tpot": 1.9988280917792889
+  }
+ }
+}
