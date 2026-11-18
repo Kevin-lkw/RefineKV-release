@@ -70,12 +70,12 @@
     </div>
     <!-- quality-cards:start -->
     <div class="qg-panel" id="quality-qwen" data-quality-panel="qwen">
-      <p class="qg-context"><strong>Qwen2.5-7B-Instruct</strong><span>15 ms/token budget</span></p>
+      <p class="qg-context"><strong>Qwen2.5-7B-Instruct</strong><span>Same-speed comparison at τ = 0.01</span></p>
       <div class="qg-grid">
-        <article class="qg-card" data-benchmark="longbench" data-budget="15">
+        <article class="qg-card" data-benchmark="longbench">
           <h3>LongBench</h3>
           <p class="qg-gain"><strong>+1.71</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
+          <p class="qg-baseline-caption">vs. SnapKV 25%, the best baseline at the same or faster speed</p>
           <p class="qg-ratio">1.04× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
           <div class="qg-row qg-ours" data-point="46">
@@ -92,10 +92,10 @@
           </div>
           <div class="qg-takeaway"><p class="qg-gap"><strong>0.11 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.18× faster</strong> decoding</p></div>
         </article>
-        <article class="qg-card" data-benchmark="ruler" data-budget="15">
+        <article class="qg-card" data-benchmark="ruler">
           <h3>RULER</h3>
           <p class="qg-gain"><strong>+14.22</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 25% within this budget</p>
+          <p class="qg-baseline-caption">vs. SnapKV 25%, the best baseline at the same or faster speed</p>
           <p class="qg-ratio">1.28× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
           <div class="qg-row qg-ours" data-point="59">
@@ -112,15 +112,15 @@
           </div>
           <div class="qg-takeaway"><p class="qg-gap"><strong>0.60 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.19× faster</strong> decoding</p></div>
         </article>
-        <article class="qg-card" data-benchmark="helmet" data-budget="15">
+        <article class="qg-card" data-benchmark="helmet">
           <h3>HELMET</h3>
-          <p class="qg-gain"><strong>+0.52</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. SnapKV 50% within this budget</p>
-          <p class="qg-ratio">1.01× the baseline score</p>
+          <p class="qg-gain"><strong>+2.17</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 50%, the best baseline at the same or faster speed</p>
+          <p class="qg-ratio">1.04× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="75">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">13.89 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:52.8325363636%"></span></span><strong class="qg-score">52.83</strong></div>
+          <div class="qg-row qg-ours" data-point="74">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">15.14 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:54.4828144886%"></span></span><strong class="qg-score">54.48</strong></div>
           </div>
           <div class="qg-row qg-baseline" data-point="83">
             <div class="qg-row-label"><span><strong>SnapKV</strong> <small>50%</small></span><span class="qg-time">14.93 ms/token</span></div>
@@ -130,46 +130,46 @@
             <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">17.07 ms/token</span></div>
             <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:54.5685811553%"></span></span><strong class="qg-score">54.57</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>1.74 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.23× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.09 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.13× faster</strong> decoding</p></div>
         </article>
       </div>
     </div>
     <div class="qg-panel" id="quality-llama" data-quality-panel="llama" hidden>
-      <p class="qg-context"><strong>Llama-3.1-8B-Instruct</strong><span>17 ms/token budget</span></p>
+      <p class="qg-context"><strong>Llama-3.1-8B-Instruct</strong><span>Same-speed comparison at τ = 0.01</span></p>
       <div class="qg-grid">
-        <article class="qg-card" data-benchmark="longbench" data-budget="17">
+        <article class="qg-card" data-benchmark="longbench">
           <h3>LongBench</h3>
-          <p class="qg-gain"><strong>+1.16</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
-          <p class="qg-ratio">1.02× the baseline score</p>
+          <p class="qg-gain"><strong>+2.64</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. PyramidKV 10%, the best baseline at the same or faster speed</p>
+          <p class="qg-ratio">1.06× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
-          <div class="qg-row qg-ours" data-point="2">
-            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.1</small></span><span class="qg-time">14.62 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.9509997076%"></span></span><strong class="qg-score">48.95</strong></div>
+          <div class="qg-row qg-ours" data-point="1">
+            <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">15.73 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.8688434074%"></span></span><strong class="qg-score">48.87</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="8">
-            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.08 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:47.7956250000%"></span></span><strong class="qg-score">47.80</strong></div>
+          <div class="qg-row qg-baseline" data-point="7">
+            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>10%</small></span><span class="qg-time">14.40 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:46.2325000000%"></span></span><strong class="qg-score">46.23</strong></div>
           </div>
           <div class="qg-row qg-full" data-point="0">
             <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">24.44 ms/token</span></div>
             <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:48.8562500000%"></span></span><strong class="qg-score">48.86</strong></div>
           </div>
-          <div class="qg-takeaway"><p class="qg-gap"><strong>0.09 points above</strong> Full Attention</p><p class="qg-speed"><strong>1.67× faster</strong> decoding</p></div>
+          <div class="qg-takeaway"><p class="qg-gap"><strong>0.01 points above</strong> Full Attention</p><p class="qg-speed"><strong>1.55× faster</strong> decoding</p></div>
         </article>
-        <article class="qg-card" data-benchmark="ruler" data-budget="17">
+        <article class="qg-card" data-benchmark="ruler">
           <h3>RULER</h3>
-          <p class="qg-gain"><strong>−0.12</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
-          <p class="qg-ratio">1.00× the baseline score</p>
+          <p class="qg-gain"><strong>+3.39</strong><span>score points</span></p>
+          <p class="qg-baseline-caption">vs. SnapKV 10%, the best baseline at the same or faster speed</p>
+          <p class="qg-ratio">1.05× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
           <div class="qg-row qg-ours" data-point="16">
             <div class="qg-row-label"><span><strong>RefineKV</strong> <small>τ = 0.01</small></span><span class="qg-time">15.68 ms/token</span></div>
             <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:70.1923846154%"></span></span><strong class="qg-score">70.19</strong></div>
           </div>
-          <div class="qg-row qg-baseline" data-point="23">
-            <div class="qg-row-label"><span><strong>PyramidKV</strong> <small>25%</small></span><span class="qg-time">16.12 ms/token</span></div>
-            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:70.3138461538%"></span></span><strong class="qg-score">70.31</strong></div>
+          <div class="qg-row qg-baseline" data-point="18">
+            <div class="qg-row-label"><span><strong>SnapKV</strong> <small>10%</small></span><span class="qg-time">14.43 ms/token</span></div>
+            <div class="qg-score-row"><span class="qg-track" aria-hidden="true"><span style="width:66.8015384615%"></span></span><strong class="qg-score">66.80</strong></div>
           </div>
           <div class="qg-row qg-full" data-point="15">
             <div class="qg-row-label"><span><strong>Full Attention</strong> <small>Reference</small></span><span class="qg-time">24.43 ms/token</span></div>
@@ -177,10 +177,10 @@
           </div>
           <div class="qg-takeaway"><p class="qg-gap"><strong>3.17 points below</strong> Full Attention</p><p class="qg-speed"><strong>1.56× faster</strong> decoding</p></div>
         </article>
-        <article class="qg-card" data-benchmark="helmet" data-budget="17">
+        <article class="qg-card" data-benchmark="helmet">
           <h3>HELMET</h3>
           <p class="qg-gain"><strong>+0.13</strong><span>score points</span></p>
-          <p class="qg-baseline-caption">vs. PyramidKV 25% within this budget</p>
+          <p class="qg-baseline-caption">vs. PyramidKV 25%, the best baseline at the same or faster speed</p>
           <p class="qg-ratio">1.00× the baseline score</p>
           <div class="qg-score-label">Task score <span>0–100</span></div>
           <div class="qg-row qg-ours" data-point="31">
@@ -200,8 +200,8 @@
       </div>
     </div>
     <!-- quality-cards:end -->
-    <p class="qg-note">RefineKV and the best efficient-attention baseline fit within the shown time budget. Full Attention is the quality reference and takes longer. Higher task scores are better.</p>
-    <details class="protocol"><summary>Comparison details <span aria-hidden="true">+</span></summary><div class="details-body"><p>These examples use a fixed budget of 15 ms per output token for Qwen and 17 ms for Llama. Each card shows the highest-scoring measured RefineKV configuration (τ = 0.01 or 0.1) and the highest-scoring complete baseline configuration within that budget. Baselines include SnapKV, StreamingLLM, PyramidKV, Quest, and Double-P. Actual times are shown beside each method.</p><p>Scores are task averages on a shared 0–100 scale. Differences and ratios use unrounded scores. Incomplete evaluations and preliminary single-input timing results are excluded. Timings follow the paper’s 128-output-token decode protocol with CUDA Graph, excluding prefill; Quest is timed in eager mode. They are separate from the vLLM video. Figure 4 and Table 1 below show the wider quality–latency trade-offs.</p></div></details>
+    <p class="qg-note">Each card compares RefineKV with the best efficient-attention baseline that decodes at the same or faster speed. Full Attention is the quality reference and takes longer. Higher task scores are better.</p>
+    <details class="protocol"><summary>Comparison details <span aria-hidden="true">+</span></summary><div class="details-body"><p>Each card fixes RefineKV at τ = 0.01 and shows the highest-scoring complete baseline configuration whose time per output token is no higher than RefineKV’s on the same model and benchmark. Baselines include SnapKV, StreamingLLM, PyramidKV, Quest, and Double-P. Actual times are shown beside each method.</p><p>Scores are task averages on a shared 0–100 scale. Differences and ratios use unrounded scores. Incomplete evaluations and preliminary single-input timing results are excluded. Timings follow the paper’s 128-output-token decode protocol with CUDA Graph, excluding prefill; Quest is timed in eager mode. They are separate from the vLLM video. Figure 4 and Table 1 below show the wider quality–latency trade-offs.</p></div></details>
     <p id="quality-status" class="sr-only" aria-live="polite"></p>
     <noscript><p class="qg-note">Showing Qwen results. Enable JavaScript to switch models.</p></noscript>
   </section>

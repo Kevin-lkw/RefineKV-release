@@ -8,10 +8,6 @@
     "ruler": "RULER",
     "helmet": "HELMET"
   },
-  "showcase_budgets_ms": {
-    "qwen": 15,
-    "llama": 17
-  },
   "points": [
     {
       "id": 0,
@@ -1243,8 +1239,8 @@
     "aggregation": "Unweighted task macro for both task score and steady TPOT; 0–100 score scale.",
     "latency_protocol": "128 output tokens, one warmup and two measured requests per task/config; 126 steady decode intervals; prefill excluded. LongBench/RULER: 130944 input tokens. HELMET: per-task 83341–130944 input tokens. CUDA Graph for all methods except Quest (eager).",
     "helmet_quality": "20 source samples per task, 16 non-citation tasks; matches bundled Table 1.",
-    "selection": "Independently maximize score among measured RefineKV and eligible non-Full baselines with TPOT <= budget. Break score ties by lower TPOT. No interpolation. Full Attention remains a reference even if outside budget.",
-    "presentation": "Three benchmark cards per model. Fixed, labeled budgets: Qwen 15 ms/token; Llama 17 ms/token. Model switching is the only comparison control. The complete quality/latency trade-offs remain in Figure 4 and Table 1.",
+    "selection": "RefineKV is fixed at tau = 0.01. The baseline is the highest-scoring non-Full method whose TPOT is no higher than RefineKV tau = 0.01 on the same model and benchmark. Break score ties by lower TPOT. No interpolation.",
+    "presentation": "Three benchmark cards per model, each a same-speed comparison. Model switching is the only comparison control. The complete quality/latency trade-offs remain in Figure 4 and Table 1.",
     "excluded": "Partial-quality points are already left out of the source figure (main_box_q0_20261112/README.md)."
   }
 }
