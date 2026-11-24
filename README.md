@@ -3,6 +3,7 @@
 Implementation of **RefineKV: Query-Adaptive KV Cache Compression via
 Attention-Error Bounds**.
 
+[Paper (arXiv:2611.28171)](https://arxiv.org/abs/2611.28171) ·
 [Project website](https://kevin-lkw.github.io/RefineKV-release/)
 with interactive figures, decoding demos, and evaluation results.
 
@@ -34,8 +35,8 @@ is a block-risk threshold, not a fixed token budget or a total generation-error
 bound.
 
 The paper evaluates Llama-3.1-8B-Instruct and Qwen2.5-7B-Instruct on LongBench,
-RULER, and HELMET, reporting up to **11.7× attention-phase speedup** and
-**1.76× decode speedup**. These are paper results on RTX PRO 6000 Blackwell.
+RULER, and HELMET, reporting up to **7.6× attention-phase speedup** and
+**1.66× decode speedup**. These are paper results on RTX PRO 6000 Blackwell.
 The release benchmark uses a separate runtime, described below.
 
 ## Demos
@@ -192,3 +193,15 @@ Triton/reference agreement, and state restoration. Random model tests require
 no downloads. For CPU: `pytest -m "not cuda"`.
 
 MIT. See [LICENSE](LICENSE) and [NOTICE](NOTICE) for attribution.
+
+## Citation
+
+```bibtex
+@article{lian2026refinekv,
+  title   = {RefineKV: Query-Adaptive KV Cache Compression
+             via Attention-Error Bounds},
+  author  = {Lian, Kewei and Zhai, Jiayi and Liu, Anji},
+  journal = {arXiv preprint arXiv:2611.28171},
+  year    = {2026}
+}
+```
